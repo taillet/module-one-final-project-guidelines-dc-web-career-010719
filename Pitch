@@ -1,0 +1,72 @@
+3 Models: Rewards program that helps restaurants give perks to good customers
+
+
+Restaurant Model
+attr_accessor :name, :location
+--------------------------------------------------------------------------------
+Review Model
+
+attr_accessor :punctuality, :tip , :etiquette
+attr_reader :restaurant, :customer
+
+def initialize(restaurant:, customer:, punctuality:, tip: , etiquette:)
+end
+
+different tiers based on ratings
+punctuality ---> priority for reservations
+tip ---> discounts
+etiquette ---> newer hires (since they're nicer, & customers won't know)
+--------------------------------------------------------------------------------
+Customer Model
+
+Restaurant
+attr_accessor :name, :location / whatever else from the api
+
+Customer
+attr_accessor :name, score/rating
+
+Review
+attr_accessor :customer_object, :restaurant_object, review_content
+--------------------------------------------------------------------------------
+Rewards application where restaurants rate customers, app then assigns tier and discounts to customers based on the customers’ aggregate scores
+
+Potential APIs:
+https://developers.zomato.com/api
+https://rapidapi.com/serg.osipchuk/api/YelpAPI
+
+Customer ID 	Customer Name 	?
+
+As a customer, I want to view my global rating (through review).
+As a customer, I want to view my rewards based on tier (through review).
+As a customer, I want to see all the restaurants I’ve been to (through review).
+
+
+Review ID	Rating 1: Etiquette 	Rating 2: Punctuality	Rating 3:
+Tipping	Overall Rating 	Customer ID	Restaurant ID
+
+
+Restaurant ID	Restaurant Name	API Data
+
+As a restaurant user, I want to review/rate my customers.
+As a restaurant user, I want to be able to save and retrieve customers in different tiers based on their ratings
+
+Reward ID 	Requirement	Reward/Discount	Restaurant ID
+Gold tier	Overall rating greater than 4 stars	20%	McDonalds
+Timely 	Punctuality rating >4	“Booking Priority”	Mcdonalds
+
+As a restaurant user, I want to set a rewards program.
+
+Interesting methods:
+Worst customer?
+Best customer?
+Customers by tier
+Restaurants with best customers
+Restaurant with most polite customers…
+
+ASCII Links:
+https://www.asciiart.eu/miscellaneous/signs
+https://www.asciiart.eu/miscellaneous/diamonds
+https://www.asciiart.eu/miscellaneous/hourglass
+https://www.asciiart.eu/ascii-one-line
+https://www.asciiart.eu/art-and-design/borders
+https://www.asciiart.eu/art-and-design/dividers
