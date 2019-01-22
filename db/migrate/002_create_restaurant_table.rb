@@ -1,5 +1,5 @@
 
-class CreateRestaurantTable < ActiveRecord::Migration[5.2]
+class CreateRestaurantTable < ActiveRecord::Migration[4.2]
 
   def change
     create_table :restaurants do |t|

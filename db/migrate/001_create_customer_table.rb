@@ -1,5 +1,5 @@
 
-class CreateCustomerTable < ActiveRecord::Migration[5.2]
+class CreateCustomerTable < ActiveRecord::Migration[4.2]
 
   def change
     create_table :customers do |t|
