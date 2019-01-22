@@ -5,6 +5,11 @@ class Restaurant < ActiveRecord::Base
   has_many :customers, through: :reviews
   has_many :rewards
 
+
+  # eventually, ps and ts could be calculated by a method rather than input by worker
+  # ps could be time of reservation vs. time arrived
+  # ts could ask for bill total, and bill paid and calculate tip percent
+
   def write_review(customer, es, ps, ts)
     overall = ((es.to_f + ps.to_f + ts.to_f) / 3).round(1)
     r = Review.create(customer: customer, restaurant: self, etiquette: es, punctuality: ps, tipping: ts, overall: overall)
@@ -26,9 +31,5 @@ class Restaurant < ActiveRecord::Base
   def self.worst_customer
     Customer.all.min_by{|i| i.get_overall_rating}
   end
-
-
-
-
 
 end
