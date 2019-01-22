@@ -11,9 +11,17 @@ class Restaurant < ActiveRecord::Base
     r
   end
 
-  def create_reward
-
+  def create_reward(label, requirement, discount)
+    reward = Reward.create(restaurant: self, label: label, requirement: requirement, discount: discount)
+    reward.save
+    reward
   end
+
+  def self.best_customer
+    Customer.all.max_by{|i| i.get_overall_rating}
+  end
+
+
 
 
 
