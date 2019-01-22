@@ -23,3 +23,5 @@ mcd.write_review(paul, 3, 5, 3)
 mcd_plat = Reward.create(label: "Platinum Tier", restaurant: mcd, requirement: 4.0, discount: 20)
 mcd_gold = Reward.create(label: "Gold Tier", restaurant: mcd, requirement: 3.5, discount: 10)
 five_plat = Reward.create(label: "Platinum Tier", restaurant: five, requirement: 4.0, discount: 20)
+
+#zomato api key: 1c85210b34ab03574e309ac1807d426b
