@@ -25,3 +25,11 @@ mcd_gold = Reward.create(label: "Gold Tier", restaurant: mcd, requirement: 3.5, 
 five_plat = Reward.create(label: "Platinum Tier", restaurant: five, requirement: 4.0, discount: 20)
 
 #zomato api key: 1c85210b34ab03574e309ac1807d426b
+
+# require 'csv'
+# def csv_to_array(file_location)
+#     csv = CSV::parse(File.open(file_location, 'r') {|f| f.read })
+#     fields = csv.shift
+#     fields = fields.map {|f| f.downcase.gsub(" ", "_")}
+#     csv.collect { |record| Hash[*fields.zip(record).flatten ] }
+# end

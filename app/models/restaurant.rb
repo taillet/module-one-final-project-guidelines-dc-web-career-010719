@@ -32,4 +32,8 @@ class Restaurant < ActiveRecord::Base
     Customer.all.min_by{|i| i.get_overall_rating}
   end
 
+  #best/worst by restaurant
+  #most visited/reviewed
+  #best x by self
+
 end

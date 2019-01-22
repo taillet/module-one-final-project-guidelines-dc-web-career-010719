@@ -29,6 +29,11 @@ class Customer < ActiveRecord::Base
     (self.get_reviews_by_restaurant(restaurant).inject{|sum, i| sum + i}.to_f / self.get_visits_by_restaurant(restaurant)).round(1)
   end
 
+  # def get_average_x_score(x)
+  #   #returns the value (float) of all customers etiquette ratings
+  #   (self.get_all_customer_reviews.map{|i| i.get_attr(x)}.inject{|sum, x| sum + x}.to_f / self.get_all_customer_reviews.size).round(1)
+  # end
+
   def get_average_etiquette_score
     #returns the value (float) of all customers etiquette ratings
     (self.get_all_customer_reviews.map{|i| i.etiquette}.inject{|sum, x| sum + x}.to_f / self.get_all_customer_reviews.size).round(1)
