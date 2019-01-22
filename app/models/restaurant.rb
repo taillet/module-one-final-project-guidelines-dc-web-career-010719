@@ -3,6 +3,7 @@ class Restaurant < ActiveRecord::Base
 
   has_many :reviews
   has_many :customers, through: :reviews
+  has_many :rewards
 
   def write_review(customer, es, ps, ts)
     overall = ((es.to_f + ps.to_f + ts.to_f) / 3).round(1)

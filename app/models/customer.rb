@@ -24,4 +24,14 @@ class Customer < ActiveRecord::Base
     (self.get_all_customer_reviews.map{|i| i.tipping}.inject{|sum, x| sum + x}.to_f / self.get_all_customer_reviews.size).round(1)
   end
 
+  def find_reward_qualifications
+    #higher tier should obsolete lower tiers
+    score = self.get_average_rating
+    Reward.all.select{|i| score >= i.requirement}
+  end
+
+  def find_reward_qualifications_by_restaurant(restaurant)
+    self.find_reward_qualifications.select{|i| i.restaurant == restaurant}
+  end
+
 end
