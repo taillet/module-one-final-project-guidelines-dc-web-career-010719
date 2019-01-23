@@ -19,9 +19,9 @@ require_relative 'spec_helper'
       expect(checker.get_potential_rewards).to eq([a,b,c])
     end
 
-    # it 'allows restaurant to find best customer' do
-    #   expect(Restaurant.best_customer).to eq(phil)
-    # end
+    it 'allows restaurant to find best customer' do
+      expect(Restaurant.best_customer).to eq(phil)
+    end
 
 # figure out how to run rake db:seef before running tests
 
