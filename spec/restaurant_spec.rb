@@ -3,7 +3,7 @@ require_relative 'spec_helper'
 
   let (:checker) {Restaurant.new}
     it 'creates a review instance with the correct customer information' do
-      jack = Customer.create(name: "Jack")
+      jack = Customer.create(username: "Jack")
       expect(checker.write_review(jack,5,5,5)).to eq(Review.find_by(customer: jack))
     end
 
@@ -19,10 +19,10 @@ require_relative 'spec_helper'
     end
 
     it 'allows restaurant to find best customer' do
-      expect(Restaurant.best_customer).to eq(Customer.find_by(name: "Jack"))
+      expect(Restaurant.best_customer).to eq(Customer.find_by(username: "Jack"))
     end
 
     it 'allows restaurant to find worst customer' do
-      expect(Restaurant.worst_customer).to eq(Customer.find_by(name: "Heloise"))
+      expect(Restaurant.worst_customer).to eq(Customer.find_by(username: "Heloise"))
     end
 end
