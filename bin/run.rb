@@ -74,8 +74,8 @@ def restaurant_processing
     return
   end
 
-  puts "Would you like to [r]eview a customer, or [a]dd a new reward to your reward program?"
-  input = get_valid_input(['r', 'review', 'a', 'add'])
+  puts "Would you like to [r]eview a customer, or [e]dit your reward program?"
+  input = get_valid_input(['r', 'review', 'e', 'edit'])
   if input == 'r' || input == 'review'
     review_customer(restaurant)
   else
@@ -239,25 +239,57 @@ end
 
 def modify_reward_program(restaurant)
 
-  puts "Editing the reward program for #{restaurant.name}"
-  puts "Do you want to [e]dit an existing reward or [c]reate a new one?"
-  input = get_valid_input(['e', 'edit', 'c', 'create'])
+  puts "Modifying the reward program for #{restaurant.name}"
+  puts "Do you want to [e]dit an existing reward or [a]dd a new one?"
+  input = get_valid_input(['e', 'edit', 'a', 'add'])
 
   if input == 'e' || input == 'edit'
-    edit_rewards(restaurant)
+    choose_reward_to_edit(restaurant)
   else
     add_reward(restaurant)
   end
 
 end
 
-def edit_rewards(restaurant)
+def choose_reward_to_edit(restaurant)
 
-  puts "Editing the rewards program for #{restaurant.name}..."
-  puts "Please be considerate of customers and edit rewards infrequently."
+  puts "Editing rewards for #{restaurant.name}..."
+  puts "Please be considerate of customers and change rewards infrequently."
   puts "current rewards for this program: "
-  restaurant.list_potential_rewards
-  gets.chomp
+  all_rewards = restaurant.get_potential_rewards
+  for i in (1..all_rewards.size)
+    reward = all_rewards[i - 1]
+    puts "#{i}: #{reward.label} - Desc: #{reward.reward_description} for customers with a #{reward.requirement} #{reward.reward_type} rating."
+  end
+  puts "Enter the number of the reward you would like to edit"
+  input = get_valid_input((1..all_rewards.size).map{|i| i.to_s})
+  active_reward = all_rewards[input.to_i - 1]
+
+  edit_reward(active_reward, restaurant)
+
+end
+
+def edit_reward(active_reward, restaurant)
+
+  puts "Current reward data for the #{active_reward.label} reward: "
+  puts "label: #{active_reward.label}, type: #{active_reward.reward_type}, requirement: #{active_reward.requirement}, desc: #{active_reward.reward_description}."
+  puts "Enter the new values for this reward: "
+  puts "Choose the name for your new reward (example: Platinum Tier, Early Bird)"
+  label = gets.chomp
+  puts "Choose the customer score your reward should examine (one of Overall/Etiquette/Punctuality/Tipping)"
+  type = get_valid_input(['overall', 'etiquette', 'punctuality', 'tipping']).capitalize
+  puts "Choose the required score for earning this reward (1.0 - 5.0)"
+  req = gets.chomp.to_f
+  while !(1.0..5.0).include?(req)
+    puts "Not a valid input, please try again."
+    req = gets.chomp.to_f
+  end
+  puts "Enter the reward a customer will receive for meeting these requirements (example: 20% discount, Booking Priority)"
+  desc = gets.chomp
+
+  Reward.all.delete(active_reward.id)
+  restaurant.create_reward(label, req, desc, type)
+  puts "Reward updated!"
 
 end
 
