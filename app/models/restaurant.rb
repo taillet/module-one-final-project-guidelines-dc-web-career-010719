@@ -27,7 +27,7 @@ class Restaurant < ActiveRecord::Base
   end
 
   def list_potential_rewards
-    self.get_potential_rewards.each{|i| puts i}
+    self.get_potential_rewards.each{|i| puts "#{i.label} - Desc: #{i.reward_description} for customers with a #{i.requirement} #{i.reward_type} rating."}
   end
 
   def self.best_customer

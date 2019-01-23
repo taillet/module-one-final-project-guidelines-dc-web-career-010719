@@ -74,7 +74,13 @@ def restaurant_processing
     return
   end
 
-  review_customer(restaurant)
+  puts "Would you like to [r]eview a customer, or [a]dd a new reward to your reward program?"
+  input = get_valid_input(['r', 'review', 'a', 'add'])
+  if input == 'r' || input == 'review'
+    review_customer(restaurant)
+  else
+    modify_reward_program(restaurant)
+  end
 
 end
 
@@ -229,6 +235,50 @@ def get_reviewee
   else
     get_reviewee
   end
+end
+
+def modify_reward_program(restaurant)
+
+  puts "Editing the reward program for #{restaurant.name}"
+  puts "Do you want to [e]dit an existing reward or [c]reate a new one?"
+  input = get_valid_input(['e', 'edit', 'c', 'create'])
+
+  if input == 'e' || input == 'edit'
+    edit_rewards(restaurant)
+  else
+    add_reward(restaurant)
+  end
+
+end
+
+def edit_rewards(restaurant)
+
+  puts "Editing the rewards program for #{restaurant.name}..."
+  puts "Please be considerate of customers and edit rewards infrequently."
+  puts "current rewards for this program: "
+  restaurant.list_potential_rewards
+  gets.chomp
+
+end
+
+def add_reward(restaurant)
+
+  puts "Adding new reward..."
+  puts "Choose the name for your new reward (example: Platinum Tier, Early Bird)"
+  label = gets.chomp
+  puts "Choose the customer score your reward should examine (one of Overall/Etiquette/Punctuality/Tipping)"
+  type = get_valid_input(['overall', 'etiquette', 'punctuality', 'tipping']).capitalize
+  puts "Choose the required score for earning this reward (1.0 - 5.0)"
+  req = gets.chomp.to_f
+  while !(1.0..5.0).include?(req)
+    puts "Not a valid input, please try again."
+    req = gets.chomp.to_f
+  end
+  puts "Enter the reward a customer will receive for meeting these requirements (example: 20% discount, Booking Priority)"
+  desc = gets.chomp
+  restaurant.create_reward(label, req, desc, type)
+  puts "New reward added!"
+
 end
 
 # -----------------------------------------------

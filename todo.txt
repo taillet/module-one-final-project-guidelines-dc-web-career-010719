@@ -1,19 +1,10 @@
 
-  -rewards
-    -not just > for discount
-
 
   -more methods
 
-
-  -cli cleanup
-
-
   -csv/seed stuff
 
-
   -refine tip/punc scores to be calculated rather than arbitrary
-
 
   -filter rewards so only top tier shows up
 
