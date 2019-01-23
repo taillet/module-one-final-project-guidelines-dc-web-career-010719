@@ -8,6 +8,6 @@
 
   -filter rewards so only top tier shows up
 
-  -add restaurant functionality for looking up customers/extra stuff/creating rewards program
+  -add restaurant functionality for looking up customers/extra stuff
 
   - consider adding password (restaurant, user tables)

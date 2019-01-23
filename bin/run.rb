@@ -125,7 +125,7 @@ def about_scores
 end
 
 def get_score(customer, score)
-  if !customer.get_average_rating.nan?
+  if !customer.get_average_overall_rating.nan?
     if score == '1'
       puts "Your etiquette score: #{customer.get_average_etiquette_score}."
     elsif score == '2'

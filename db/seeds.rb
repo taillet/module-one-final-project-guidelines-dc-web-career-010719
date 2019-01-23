@@ -4,13 +4,13 @@ Review.destroy_all
 Reward.destroy_all
 
 
-phil = Customer.create(name: "Phil")
-heloise = Customer.create(name: "Heloise")
-paul = Customer.create(name:"Paul")
+phil = Customer.create(username: "Phil", password: '1')
+heloise = Customer.create(username: "Heloise", password: 'pass')
+paul = Customer.create(username:"Paul", password: '1111')
 
-mcd = Restaurant.create(name:"McDonalds")
-chip = Restaurant.create(name:"Chipotle")
-five = Restaurant.create(name:"Five Guys")
+mcd = Restaurant.create(name:"McDonalds", password: '111')
+chip = Restaurant.create(name:"Chipotle", password: '222')
+five = Restaurant.create(name:"Five Guys", password: '333')
 
 mcd.write_review(phil, 4, 4, 4)
 mcd.write_review(phil, 3, 3, 4)
