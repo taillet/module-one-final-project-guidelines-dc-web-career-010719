@@ -15,4 +15,8 @@
   -refine tip/punc scores to be calculated rather than arbitrary
 
 
-  -
+  -filter rewards so only top tier shows up
+
+  -add restaurant functionality for looking up customers/extra stuff/creating rewards program
+
+  - consider adding password (restaurant, user tables)

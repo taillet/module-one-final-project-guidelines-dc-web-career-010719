@@ -185,7 +185,7 @@ end
 
 def greeting
 
-  puts "Welcome to -name-"
+  puts "Welcome to --- app"
   puts "Customers can check their ratings and earned rewards,"
   puts "Restaurants can rate customers."
 
