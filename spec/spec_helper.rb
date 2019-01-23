@@ -13,7 +13,7 @@ require_relative '../config/environment.rb'
 # a separate helper file that requires the additional dependencies and performs
 # the additional setup, and require it from the spec files that actually need
 # it.
-#run rake test
+# rake test
 `rake db:seed RAILS_ENV=test`
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration

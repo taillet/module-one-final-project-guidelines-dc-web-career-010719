@@ -2,6 +2,7 @@ require 'bundler'
 Bundler.require
 
 require 'require_all'
+require 'colorize'
 
 require_all 'app/'
 

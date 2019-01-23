@@ -8,3 +8,4 @@ gem "require_all"
 gem 'rake'
 gem 'rspec'
 gem 'database_cleaner'
+gem 'colorize'
