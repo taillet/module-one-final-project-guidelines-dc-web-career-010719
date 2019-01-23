@@ -32,11 +32,11 @@ class Restaurant < ActiveRecord::Base
 
   def self.best_customer
     #global, could make for each restaurant
-    Customer.all.max_by{|i| i.get_overall_rating}
+    Customer.all.max_by{|i| i.get_average_overall_rating}
   end
 
   def self.worst_customer
-    Customer.all.min_by{|i| i.get_overall_rating}
+    Customer.all.min_by{|i| i.get_average_overall_rating}
   end
 
   #best/worst by restaurant

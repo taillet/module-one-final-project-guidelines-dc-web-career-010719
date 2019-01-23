@@ -14,7 +14,7 @@ class Customer < ActiveRecord::Base
     self.get_all_customer_reviews.map{|i| i.restaurant == restaurant}
   end
 
-  def get_average_rating
+  def get_average_overall_rating
     #returns the value (float) of a users average overall ratings for all restaurant visits
     (self.get_all_customer_reviews.map{|i| i.overall}.inject{|sum, x| sum + x}.to_f / self.get_all_customer_reviews.size).round(1)
   end
@@ -66,7 +66,7 @@ class Customer < ActiveRecord::Base
 
     potential_rewards.each do |r|
       if r.reward_type == "Overall"
-        score = self.get_average_rating
+        score = self.get_average_overall_rating
         qualified << r if score >= r.requirement
       elsif r.reward_type == "Etiquette"
         score = self.get_average_etiquette_score
