@@ -319,7 +319,7 @@ end
 def view_customer_rewards(customer)
 
   puts "You qualify for the following rewards: "
-  customer.find_reward_qualifications.each{|i| puts "#{i.restaurant.name}: #{i.label} - Discount: #{i.discount}"}
+  customer.find_reward_qualifications.each{|i| puts "#{i.restaurant.name}: #{i.label} - Desc: #{i.reward_description}"}
 
 end
 

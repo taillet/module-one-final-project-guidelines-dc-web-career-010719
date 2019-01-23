@@ -49,17 +49,37 @@ class Customer < ActiveRecord::Base
     (self.get_all_customer_reviews.map{|i| i.tipping}.inject{|sum, x| sum + x}.to_f / self.get_all_customer_reviews.size).round(1)
   end
 
-  def find_reward_qualifications
-    #shows all rewards that a customer qualifies for
-
+  def find_reward_qualifications(restaurant = nil, type = nil)
+    #shows rewards that a customer qualifies for with optional parameters for restaurant and type
     #higher tier should obsolete lower tiers
-    score = self.get_average_rating
-    Reward.all.select{|i| score >= i.requirement}
-  end
 
-  def find_reward_qualifications_by_restaurant(restaurant)
-    #shows rewards that a customer qualifies for, with a specific restaurant
-    self.find_reward_qualifications.select{|i| i.restaurant == restaurant}
+    potential_rewards = Reward.all
+    qualified = []
+
+    if !restaurant.nil?
+      potential_rewards = restaurant.get_potential_rewards
+    end
+
+    if !type.nil?
+      potential_rewards = potential_rewards.select{|i| i.reward_type == type}
+    end
+
+    potential_rewards.each do |r|
+      if r.reward_type == "Overall"
+        score = self.get_average_rating
+        qualified << r if score >= r.requirement
+      elsif r.reward_type == "Etiquette"
+        score = self.get_average_etiquette_score
+        qualified << r if score >= r.requirement
+      elsif r.reward_type == "Punctuality"
+        score = self.get_average_punctuality_score
+        qualified << r if score >= r.requirement
+      elsif r.reward_type == "Tipping"
+        score = self.get_average_tipping_score
+        qualified << r if score >= r.requirement
+      end
+    end
+    qualified
   end
 
 end

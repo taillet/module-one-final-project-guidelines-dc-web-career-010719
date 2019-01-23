@@ -23,6 +23,7 @@ mcd.write_review(paul, 3, 5, 3)
 mcd_plat = Reward.create(label: "Platinum Tier", restaurant: mcd, requirement: 4.0, reward_type: "Overall", reward_description: "20% Discount")
 mcd_gold = Reward.create(label: "Gold Tier", restaurant: mcd, requirement: 3.5, reward_type: "Overall", reward_description: "10% Discount")
 five_plat = Reward.create(label: "Platinum Tier", restaurant: five, requirement: 4.0, reward_type: "Overall", reward_description: "20% Discount")
+five_pun = Reward.create(label: "Five On Time", restaurant: five, requirement: 4.0, reward_type: "Punctuality", reward_description: "Booking Priority")
 
 # require 'csv'
 # def csv_to_array(file_location)

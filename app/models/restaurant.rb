@@ -23,6 +23,14 @@ class Restaurant < ActiveRecord::Base
     reward
   end
 
+  def get_potential_rewards
+    Reward.all.select{|i| i.restaurant == self}
+  end
+
+  def list_potential_rewards
+    self.get_potential_rewards.each{|i| puts i}
+  end
+
   def self.best_customer
     #global, could make for each restaurant
     Customer.all.max_by{|i| i.get_overall_rating}
