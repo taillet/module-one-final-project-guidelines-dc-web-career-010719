@@ -1,5 +1,4 @@
 require_relative 'spec_helper'
-
   describe "Restaurant" do
 
   let (:checker) {Restaurant.new}
@@ -20,9 +19,10 @@ require_relative 'spec_helper'
     end
 
     it 'allows restaurant to find best customer' do
-      expect(Restaurant.best_customer).to eq(phil)
+      expect(Restaurant.best_customer).to eq(Customer.find_by(name: "Jack"))
     end
 
-# figure out how to run rake db:seef before running tests
-
+    it 'allows restaurant to find worst customer' do
+      expect(Restaurant.worst_customer).to eq(Customer.find_by(name: "Heloise"))
+    end
 end
