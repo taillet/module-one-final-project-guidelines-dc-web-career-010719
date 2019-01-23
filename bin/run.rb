@@ -48,7 +48,7 @@ def customer_processing
     return
   end
 
-  puts "Welcome #{customer.name}."
+  puts "Welcome #{customer.username}."
 
   while true
     puts "Would you like to check your [s]cores, view your [r]ewards, or e[x]it?"
@@ -91,25 +91,35 @@ def get_customer
 
   print "Please enter your name: "
   name = gets.chomp
-  customer = Customer.all.find_by(name: name)
+  customer = Customer.all.find_by(username: name)
 
   if customer.nil?
     puts "#{name} doesn't exist in our database."
     puts "Would you like to [c]reate a new customer account, [t]ry again, or e[x]it?"
     input = get_valid_input(['c', 'create', 't', 'try again', 'x', 'exit'])
     if input == "c" || input == "create"
+      puts "Enter a password: "
+      pass = gets.chomp
       puts "Creating a new customer, #{name}..."
-      customer = Customer.create(name: name)
+      customer = Customer.create(username: name, password: pass)
       return 'new'
     elsif input == 'x' || input == 'exit'
       return 'exit'
     end
+  else
+    puts "please enter your password: "
+    pass = gets.chomp
+    if pass == customer.password
+      return customer
+    else
+      puts 'Incorrect password, logging off...'
+      return exit
+    end
   end
-  customer
 end
 
 def list_scores
-  puts "Type the number or name of the score you'd like to see, or [i]nfo for more information on these categories."
+  puts "Type the number of the score you'd like to see, or [i]nfo for more information on these categories."
   puts '1. Etiquette Score'
   puts '2. Punctuality Score'
   puts '3. Tipping Score'
@@ -133,7 +143,7 @@ def get_score(customer, score)
     elsif score == '3'
       puts "Your tipping score: #{customer.get_average_tipping_score}."
     elsif score == '4'
-      puts "Your overall score: #{customer.get_average_rating}."
+      puts "Your overall score: #{customer.get_average_overall_rating}."
     end
   else
     puts "You don't have any scores yet. Check again after your next restaurant visit."
@@ -176,33 +186,43 @@ def get_restaurant
     puts "Would you like to [c]reate a new restaurant account, [t]ry again, or e[x]it?"
     input = get_valid_input(['c', 'create', 't', 'try again', 'x', 'exit'])
     if input == "c" || input == "create"
+      puts "Enter a password for your restaurant: "
+      pass = gets.chomp
       puts "Creating a new restaurant, #{name}..."
-      restaurant = Restaurant.create(name: name)
+      restaurant = Restaurant.create(name: name, password: pass)
     elsif input == 'x' || input == 'exit'
       return 'exit'
     end
+  else
+    puts "please enter your password: "
+    pass = gets.chomp
+    if pass == restaurant.password
+      return restaurant
+    else
+      puts 'Incorrect password, logging off...'
+      return exit
+    end
   end
-  restaurant
 
 end
 
 def review_customer(restaurant)
 
-  puts "What is your customer's name?"
+  puts "What is your customer's username?"
   customer = get_reviewee
   if customer == 'x' || customer == 'exit'
     return
   end
 
   range = (1..5).map{|i| i.to_s}
-  puts "How would you rate #{customer.name}'s etiquette? (1-5)"
+  puts "How would you rate #{customer.username}'s etiquette? (1-5)"
   e = get_valid_input(range)
-  puts "How would you rate #{customer.name}'s punctuality? (1-5)"
+  puts "How would you rate #{customer.username}'s punctuality? (1-5)"
   p = get_valid_input(range)
-  puts "How would you rate #{customer.name}'s tipping? (1-5)"
+  puts "How would you rate #{customer.username}'s tipping? (1-5)"
   t = get_valid_input(range)
   restaurant.write_review(customer, e, p, t)
-  puts "Your review for #{customer.name} was submitted."
+  puts "Your review for #{customer.username} was submitted."
 
   puts "Would you like to [r]eview another customer, or e[x]it?"
   input = get_valid_input(['r', 'review', 'x', 'exit'])
@@ -217,24 +237,15 @@ end
 def get_reviewee
 
   name = gets.chomp
-  customer = Customer.all.find_by(name: name)
+  customer = Customer.all.find_by(username: name)
 
   if customer.nil?
-    puts "#{name} doesn't exist in our database."
-    puts "Would you like to [c]reate a new customer instance, [t]ry again, or e[x]it?"
-    input = get_valid_input(['c', 'create', 't', 'try again', 'x', 'exit'])
-    if input == "c" || input == "create"
-      puts "Creating a new customer, #{name}..."
-      customer = Customer.create(name: name)
-    elsif input == 'x' || input == 'exit'
-      return 'exit'
-    end
-  end
-  if !customer.nil?
-    customer
+    puts "Sorry, #{name} doesn't exist in our database."
+    return 'exit'
   else
-    get_reviewee
+    return customer
   end
+
 end
 
 def modify_reward_program(restaurant)
