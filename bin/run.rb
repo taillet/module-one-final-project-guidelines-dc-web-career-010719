@@ -1,5 +1,7 @@
 require_relative '../config/environment'
 
+#add more opportunities to exit program
+
 # --------------------------
   #helper methods
 
@@ -74,9 +76,9 @@ def restaurant_processing
     return
   end
 
-  puts "Would you like to [r]eview a customer, or [e]dit your reward program?"
-  input = get_valid_input(['r', 'review', 'e', 'edit'])
-  if input == 'r' || input == 'review'
+  puts "Would you like to [r]eview a customer, or [e]dit your reward program?" # add view customer stats
+  input = get_valid_input(['r', 'review', 'e', 'edit'])   # best/worst customer, how many visits a customer has at ur restaurant
+  if input == 'r' || input == 'review'                # view reward program, amount of customers per reward, see average scores for your restaurant
     review_customer(restaurant)
   else
     modify_reward_program(restaurant)
@@ -89,7 +91,7 @@ end
 
 def get_customer
 
-  print "Please enter your name: "
+  print "Please enter your username: "
   name = gets.chomp
   customer = Customer.all.find_by(username: name)
 
@@ -98,7 +100,7 @@ def get_customer
     puts "Would you like to [c]reate a new customer account, [t]ry again, or e[x]it?"
     input = get_valid_input(['c', 'create', 't', 'try again', 'x', 'exit'])
     if input == "c" || input == "create"
-      puts "Enter a password: "
+      print "Enter a password: " # try to hide password
       pass = gets.chomp
       puts "Creating a new customer, #{name}..."
       customer = Customer.create(username: name, password: pass)
@@ -186,7 +188,7 @@ def get_restaurant
     puts "Would you like to [c]reate a new restaurant account, [t]ry again, or e[x]it?"
     input = get_valid_input(['c', 'create', 't', 'try again', 'x', 'exit'])
     if input == "c" || input == "create"
-      puts "Enter a password for your restaurant: "
+      print "Enter a password for your restaurant: " # try to hide password
       pass = gets.chomp
       puts "Creating a new restaurant, #{name}..."
       restaurant = Restaurant.create(name: name, password: pass)
@@ -199,7 +201,7 @@ def get_restaurant
     if pass == restaurant.password
       return restaurant
     else
-      puts 'Incorrect password, logging off...'
+      puts 'Incorrect password, logging off...' #instead of logging off, allow for try again in case typo
       return exit
     end
   end
@@ -222,12 +224,12 @@ def review_customer(restaurant)
   puts "How would you rate #{customer.username}'s tipping? (1-5)"
   t = get_valid_input(range)
   restaurant.write_review(customer, e, p, t)
-  puts "Your review for #{customer.username} was submitted."
+  puts "Your review for #{customer.username} was submitted." # find way to send you back to main menu
 
   puts "Would you like to [r]eview another customer, or e[x]it?"
   input = get_valid_input(['r', 'review', 'x', 'exit'])
   if input == 'x' || input == 'exit'
-    return
+    return # find way to send you back to main menu
   else
     review_customer(restaurant)
   end
@@ -248,7 +250,7 @@ def get_reviewee
 
 end
 
-def modify_reward_program(restaurant)
+def modify_reward_program(restaurant) # add "review rewards" method for restaurants
 
   puts "Modifying the reward program for #{restaurant.name}"
   puts "Do you want to [e]dit an existing reward or [a]dd a new one?"
@@ -257,7 +259,7 @@ def modify_reward_program(restaurant)
   if input == 'e' || input == 'edit'
     choose_reward_to_edit(restaurant)
   else
-    add_reward(restaurant)
+    add_reward(restaurant) # find way to send you back to main menu
   end
 
 end
@@ -265,7 +267,7 @@ end
 def choose_reward_to_edit(restaurant)
 
   puts "Editing rewards for #{restaurant.name}..."
-  puts "Please be considerate of customers and change rewards infrequently."
+  puts "Please be considerate of customers and change rewards infrequently." # You can't unchange this warning
   puts "current rewards for this program: "
   all_rewards = restaurant.get_potential_rewards
   for i in (1..all_rewards.size)
