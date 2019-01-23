@@ -5,7 +5,6 @@ class Restaurant < ActiveRecord::Base
   has_many :customers, through: :reviews
   has_many :rewards
 
-
   # eventually, ps and ts could be calculated by a method rather than input by worker
   # ps could be time of reservation vs. time arrived
   # ts could ask for bill total, and bill paid and calculate tip percent
@@ -17,8 +16,8 @@ class Restaurant < ActiveRecord::Base
     r
   end
 
-  def create_reward(label, requirement, discount)
-    reward = Reward.create(restaurant: self, label: label, requirement: requirement, discount: discount)
+  def create_reward(label, requirement, reward_description, reward_type)
+    reward = Reward.create(restaurant: self, label: label, requirement: requirement, reward_description: reward_description, reward_type: reward_type)
     reward.save
     reward
   end
