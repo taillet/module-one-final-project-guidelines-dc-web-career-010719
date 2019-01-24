@@ -29,5 +29,36 @@ restaurant
   -divider above main menu ("Choose an action")
   -smaller divider above "What is your customer's username"
   -\n after "Your review was submitted"
-  
+
+  (add reward)
+  -divider above "Adding new reward"
+  -space/divider after "Adding new reward"
+  -space before and/or after "New reward added"
+
+  (edit reward)
+  -space out rewards?
+  -divider above "Modifying the rewards program for"
+  -divider above "Editing rewards for"
+  -change style of warning message/add more if we want
+  -add \n before and/or after "current rewards for this program"
+  -add cancel function somewhere in edit
+  -\n / divider before and/or after "Reward updated"
+
+  (view information)
+  -divider above "view information for"
+  -add divider above where rewards are listed
+  -add explanation above reward list (ie "These are the rewards")
+  -format how the reward data is displayed after choosing (not sure on best way)
+  -change exit to escape in the menu "Choose a number to view detailed data"
+
+  -divider above "Viewing customer data"
+  -divider above each of the puts statements for customer data
+  -maybe add ~ ~ or something around the names to emphasize
+  -escape/back instead of exit in this menu
+
+
+
+
 ----
+
+testing if github works
