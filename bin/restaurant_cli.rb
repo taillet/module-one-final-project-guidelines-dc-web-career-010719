@@ -44,7 +44,7 @@ def get_restaurant
     input = get_valid_input(['c', 'create', 't', 'try again', 'x', 'exit'])
     if input == 'c' || input == 'create'
       print 'Enter a password for your restaurant: ' # try to hide password
-      pass = gets.chomp
+      pass = STDIN.noecho(&:gets).chomp
       puts "Creating a new restaurant, #{name}..."
       restaurant = Restaurant.create(name: name, password: pass)
     elsif input == 'x' || input == 'exit'
@@ -201,26 +201,53 @@ def view_information(restaurant)
       view_restaurant_customer_data(restaurant)
     else
       return
+    end
   end
 
 end
 
 def view_restaurant_reward_data(restaurant)
 
+  all_rewards = restaurant.get_potential_rewards
+  (1..all_rewards.size).each do |i|
+    reward = all_rewards[i - 1]
+    puts "#{i}: #{reward.label} - Desc: #{reward.reward_description} for customers with a #{reward.requirement} #{reward.reward_type} rating."
+  end
+  puts 'Choose a number to view detailed data on a reward plan, or e[x]it'
+  input = get_valid_input([(1..all_rewards.size).map(&:to_s), 'x', 'exit'].flatten)
+
+  if input == 'x' || input == 'exit'
+    return
+  else
+    active_reward = all_rewards[input.to_i - 1]
+  end
+
+  puts "Reward data for the #{active_reward.label} reward: "
+  puts "label: #{active_reward.label}, type: #{active_reward.reward_type}, requirement: #{active_reward.requirement}, desc: #{active_reward.reward_description}."
+  puts "Customers who qualify for this reward: "
+
+  gets.chomp
+  puts "---------------------"
+  view_restaurant_reward_data(restaurant)
+
 end
+
+def view_restaurant_customer_data(restaurant)
+
+  puts "Viewing customer data: "
+  options = ['1: Best customer', '2: Worst customer', '3: Most visits']
+  options.each{|i| puts i}
+  input = get_valid_input([(1..options.size).map(&:to_s), 'x', 'exit'].flatten)
+
+  if input == '1'
+    puts "The higest rated customer at your restaurant is: #{restaurant.best_customer}"
+  elsif input == '2'
+    puts "The lowest rated customer at your restaurant is : #{restaurant.worst_customer}"
+  elsif input == '3'
+    puts "The customer who has visted your restaurant the most is #{restaurant.most_visited}"
+  end
+
+
 end
-
-#customer data
-#reward program
-
-#best customers
-#most visits
-#reward program
-#average scores
-
-# best/worst customer, how many visits a customer has at ur restaurant
-# view reward program, amount of customers per reward, see average scores for your restaurant
-
-
 
 #

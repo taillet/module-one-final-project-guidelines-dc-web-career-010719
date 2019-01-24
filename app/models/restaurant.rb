@@ -68,16 +68,20 @@ class Restaurant < ActiveRecord::Base
     get_potential_rewards.each { |i| puts "#{i.label} - Desc: #{i.reward_description} for customers with a #{i.requirement} #{i.reward_type} rating." }
   end
 
-  def self.best_customer
-    # global, could make for each restaurant
-    Customer.all.max_by(&:get_average_overall_rating)
+  def get_all_restaurant_reviews
+    Review.all.select{ |i| i.restaurant == self}
   end
 
-  def self.worst_customer
-    Customer.all.min_by(&:get_average_overall_rating)
+  def best_customer
+    self.get_all_restaurant_reviews.max_by {|i| i.customer.get_average_overall_rating}.customer.username
   end
 
-  # best/worst by restaurant
-  # most visited/reviewed
-  # best x by self
+  def worst_customer
+    self.get_all_restaurant_reviews.min_by {|i| i.customer.get_average_overall_rating}.customer.username
+  end
+
+  def most_visited
+    self.get_all_restaurant_reviews.max_by {|i| i.customer.username}.customer.username
+  end
+
 end
