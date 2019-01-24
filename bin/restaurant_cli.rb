@@ -116,12 +116,12 @@ def time_method(customer)
   puts "Was #{customer.username} [e]arly, [l]ate, or [o]n time?"
   time = get_valid_input(%w[e l o]) #need error handling
   if time == 'e'
-    puts "How early was #{customer.username}?"
+    puts "How early was #{customer.username}? (in minutes)"
     time = -gets.chomp
   elsif time == 'o'
     time = 0
   elsif time == 'l'
-    puts "How late was #{customer.username}?"
+    puts "How late was #{customer.username}? (in minutes)"
     time = gets.chomp
   else
     puts 'Incorrect input. Try again or e[x]it.'

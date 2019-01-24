@@ -2,6 +2,10 @@
 def animation
   system("clear")
   a = <<-"EOF"
+  o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o
+
+
+
 
                                                                                @@@
                                                                                 @
@@ -37,6 +41,10 @@ EOF
 
 
 b = <<-"EOF"
+o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o
+
+
+
 
                                                                         @@@
                                                                          @
@@ -72,6 +80,10 @@ EOF
 
 
 c = <<-"EOF"
+o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o
+
+
+
 
                                                                    @@@
                                                                     @
@@ -107,6 +119,10 @@ EOF
 
 
 d = <<-"EOF"
+o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o
+
+
+
 
                                                               @@@
                                                                @
@@ -141,6 +157,10 @@ d = <<-"EOF"
 EOF
 
 e = <<-"EOF"
+o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o
+
+
+
 
                                                  @@@
                                                   @
@@ -175,6 +195,10 @@ e = <<-"EOF"
 EOF
 
 f = <<-"EOF"
+o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o
+
+
+
                                                *  *  *
                                              *   @@@   *
                                                   @
@@ -210,6 +234,10 @@ EOF
 
 
 g = <<-"EOF"
+o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o
+
+
+
 
                                                  @@@
                                                   @
@@ -244,6 +272,10 @@ g = <<-"EOF"
 EOF
 
 h = <<-"EOF"
+o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o
+
+
+
                                                *  *  *
                                              *   @@@   *
                                                   @
@@ -279,6 +311,10 @@ EOF
 
 
 i = <<-"EOF"
+o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o
+
+
+
 
                                                  @@@
                                                   @

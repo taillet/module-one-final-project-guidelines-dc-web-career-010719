@@ -22,11 +22,17 @@ end
 # run methods
 
 def greeting
-  puts 'Welcome to Reward Bot!'
+
   puts "\n"
-  puts "With Reward Bot:"
-  puts 'Customers can check their ratings and earned rewards.'
-  puts 'Restaurants can create rewards programs and rate customers.'
+  puts "o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o "
+  puts "\n"
+  puts '                  Welcome to Reward Bot!'
+  puts "\n"
+  puts "                     With Reward Bot"
+  puts ' • Customers can check their ratings and earned rewards.'
+  puts ' • Restaurants can create rewards programs and rate customers.'
+  puts "\n"
+  puts "o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o "
   puts "\n"
 end
 

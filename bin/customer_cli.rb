@@ -12,6 +12,8 @@ def customer_processing
     return
   end
   puts "\n"
+  puts "o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o "
+  puts "\n"
   puts "Welcome, #{customer.username}!"
   puts "\n"
   loop do
@@ -30,15 +32,36 @@ end
 
 # ---------------------
 
+def user_exists?(user)
+  customer = Customer.all.find_by(username: user)
+  if customer.nil?
+    return false
+  else
+    return true
+  end
+end
+
+def create_user(user)
+  if !user_exists?(user)
+    print 'Create a password: ' # try to hide password
+    pass = STDIN.noecho(&:gets).chomp
+    puts "Creating a new customer, #{user}..."
+    customer = Customer.create(username: user, password: pass)
+  else
+    puts "This username already exists. Try another username."
+    user = gets.chomp
+    create_user(user)
+  end
+end
+
 def check_customer(name)
   puts "#{name} doesn't exist in our database."
   puts 'Would you like to [c]reate a new customer account, [t]ry again, or e[x]it?'
   input = get_valid_input(['c', 'create', 't', 'try again', 'x', 'exit'])
   if input == 'c' || input == 'create'
-    print 'Enter a password: ' # try to hide password
-    pass = STDIN.noecho(&:gets).chomp
-    puts "Creating a new customer, #{name}..."
-    customer = Customer.create(username: name, password: pass)
+    print 'Create a username:'
+    user = gets.chomp
+    create_user(user)
     return 'new'
   elsif input == 't' || input == 'try again'
     "#{name} doesn't exist in our database. Please enter a correct username."
@@ -82,6 +105,9 @@ end
 
 def list_scores
   puts "Type the number of the score you'd like to see, or [i]nfo for more information on these categories."
+  puts "\n"
+  puts "o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o"
+  puts "\n"
   puts '1. Etiquette Score'
   puts '2. Punctuality Score'
   puts '3. Tipping Score'
