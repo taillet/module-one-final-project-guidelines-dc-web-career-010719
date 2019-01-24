@@ -1,23 +1,26 @@
+require 'csv'
+require 'pry'
 Customer.destroy_all
 Restaurant.destroy_all
 Review.destroy_all
 Reward.destroy_all
+#
+# #
+# #
+customers = CSV.parse("customers.csv", headers: true)
 
-phil = Customer.create(username: 'Phil', password: '1')
-heloise = Customer.create(username: 'Heloise', password: 'pass')
-paul = Customer.create(username: 'Paul', password: '1111')
+
+# CSV.foreach("path/to/file.csv") do |row|
+#   # use row here...
+# end
+
+# phil = Customer.create(username: 'Phil', password: '1')
+# heloise = Customer.create(username: 'Heloise', password: 'pass')
+# paul = Customer.create(username: 'Paul', password: '1111')
 
 mcd = Restaurant.create(name: 'McDonalds', password: '111')
 chip = Restaurant.create(name: 'Chipotle', password: '222')
 five = Restaurant.create(name: 'Five Guys', password: '333')
-
-# mcd.write_review(phil, 4, 4, 4)
-# mcd.write_review(phil, 3, 3, 4)
-# five.write_review(phil, 4, 5, 3)
-# chip.write_review(heloise, 4, 4, 3)
-# mcd.write_review(heloise, 2, 5, 1)
-# five.write_review(paul, 1, 5, 5)
-# mcd.write_review(paul, 3, 5, 3)
 
 mcd.write_review(phil, 4, 0, 20, 25)
 mcd.write_review(phil, 3, 0, 10, 11)
