@@ -15,25 +15,15 @@ class Customer < ActiveRecord::Base
     self.get_all_customer_reviews.select {|i| i.restaurant == restaurant}
   end
 
-  def get_average_overall_rating
-    #returns the value (float) of a users average overall ratings for all restaurant visits
-    (self.get_all_customer_reviews.map{|i| i.overall}.inject{|sum, x| sum + x}.to_f / self.get_all_customer_reviews.size).round(1)
-  end
-
   def get_visits_by_restaurant(restaurant)
     #returns the number of times the user has visited the passed restaurant
     self.get_reviews_by_restaurant(restaurant).size
   end
 
-  def get_average_rating_by_restaurant(restaurant)
-    #returns value (float) of a customers overall rating at a specific restaurant
-    (self.get_reviews_by_restaurant(restaurant).map{|i| i.overall}.inject{|sum, i| sum + i}.to_f / self.get_visits_by_restaurant(restaurant)).round(1)
+  def get_average_overall_rating
+    #returns the value (float) of a users average overall ratings for all restaurant visits
+    (self.get_all_customer_reviews.map{|i| i.overall}.inject{|sum, x| sum + x}.to_f / self.get_all_customer_reviews.size).round(1)
   end
-
-  # def get_average_x_score(x)
-  #   #returns the value (float) of all customers etiquette ratings
-  #   (self.get_all_customer_reviews.map{|i| i.get_attr(x)}.inject{|sum, x| sum + x}.to_f / self.get_all_customer_reviews.size).round(1)
-  # end
 
   def get_average_etiquette_score
     #returns the value (float) of all customers etiquette ratings
@@ -52,7 +42,6 @@ class Customer < ActiveRecord::Base
 
   def find_reward_qualifications(restaurant = nil, type = nil)
     #shows rewards that a customer qualifies for with optional parameters for restaurant and type
-    #higher tier should obsolete lower tiers
 
     potential_rewards = Reward.all
     qualified = []

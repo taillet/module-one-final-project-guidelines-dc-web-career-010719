@@ -1,11 +1,20 @@
 
 
-  -more methods
-
-  -csv/seed stuff
-
   -refine tip/punc scores to be calculated rather than arbitrary
 
-  -filter rewards so only top tier shows up
 
-  -add restaurant functionality for looking up customers/extra stuff
+
+-csv/seed stuff
+
+-make cli interface look good
+
+---
+other
+-add stuff to cli (look at comments)
+-add comments to make the program more readable
+
+
+friday
+--
+-'extra'/tough function
+-video stuff/presentation
