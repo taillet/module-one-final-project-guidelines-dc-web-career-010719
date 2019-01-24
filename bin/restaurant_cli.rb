@@ -31,15 +31,37 @@ end
 # --------------------
   #log on/get user function
 
+def restaurant_exists?(name)
+  restaurant = Restaurant.all.find_by(name: name)
+  if restaurant.nil?
+    return false
+  else
+    return true
+  end
+end
+
+def create_restaurant(name)
+  if !restaurant_exists?(name)
+    print 'Create a password: ' # try to hide password
+    pass = STDIN.noecho(&:gets).chomp
+    puts "Creating a new restaurant, #{name}..."
+    restaurant = Restaurant.create(name: name, password: pass)
+  else
+    puts "This restaurant already exists. Try another restaurant name."
+    name = gets.chomp
+    create_user(name)
+  end
+end
+
+
 def check_restaurant(name)
   puts "#{name} doesn't exist in our database."
   puts 'Would you like to [c]reate a new restaurant account, [t]ry again, or e[x]it?'
   input = get_valid_input(['c', 'create', 't', 'try again', 'x', 'exit'])
   if input == 'c' || input == 'create'
-    print 'Enter a password for your restaurant: ' # try to hide password
-    pass = STDIN.noecho(&:gets).chomp
-    puts "Creating a new restaurant, #{name}..."
-    restaurant = Restaurant.create(name: name, password: pass)
+    print 'Create a restaurant name:'
+    rest = gets.chomp
+    create_restaurant(rest)
   elsif input == 't' || input == 'try again'
     get_restaurant
   elsif input == 'x' || input == 'exit'
