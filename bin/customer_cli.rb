@@ -152,11 +152,28 @@ def view_customer_scores(customer)
 end
 
 def view_customer_rewards(customer)
+
+  puts "\nView rewards by [r]estaurant, or [a]ll?"
+  input = get_valid_input(%w[r restaurant a all])
+
+  if ['r', 'restaurant'].include?(input)
+    print "Enter restaurant name: "
+    r_input = gets.chomp
+    if Restaurant.all.find_by(name: r_input).nil?
+      puts "Did not find restaurant, searching with no filter..."
+      rewards = customer.find_reward_qualifications
+    else
+      rewards = customer.find_reward_qualifications(restaurant = Restaurant.all.find_by(name: r_input))
+    end
+  else
+    rewards = customer.find_reward_qualifications
+  end
+
   print "\n"
-  puts 'You qualify for the following rewards: ' # use full method functionality with restaurant and type inputs
-  customer.find_reward_qualifications.each do |i|
+  puts 'You qualify for the following rewards: '
+  rewards.each do |i|
     puts "----"
     puts "#{i.restaurant.name}: #{i.label} - Desc: #{i.reward_description}"
   end
-  puts "----\n"
+  puts "----\n\n"
 end
