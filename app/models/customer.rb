@@ -40,6 +40,19 @@ class Customer < ActiveRecord::Base
     (self.get_all_customer_reviews.map{|i| i.tipping}.inject{|sum, x| sum + x}.to_f / self.get_all_customer_reviews.size).round(1)
   end
 
+  def check_single_reward_status(reward)
+    score = if reward.reward_type == "Overall"
+              self.get_average_overall_rating
+            elsif reward.reward_type == "Etiquette"
+              self.get_average_etiquette_score
+            elsif reward.reward_type == "Punctuality"
+              self.get_average_punctuality_score
+            else
+              self.get_average_tipping_score
+            end
+    score >= reward.requirement
+  end
+
   def find_reward_qualifications(restaurant = nil, type = nil)
     #shows rewards that a customer qualifies for with optional parameters for restaurant and type
 

@@ -272,7 +272,7 @@ def view_restaurant_reward_data(restaurant)
   all_rewards = restaurant.get_potential_rewards
   (1..all_rewards.size).each do |i|
     reward = all_rewards[i - 1]
-    puts "#{i}: #{reward.label} - Desc: #{reward.reward_description} for customers with a #{reward.requirement} #{reward.reward_type}.downcase rating."
+    puts "#{i}: #{reward.label} - Desc: #{reward.reward_description} for customers with a #{reward.requirement} #{reward.reward_type} rating."
   end
   puts "\n"
   puts 'Choose a number to view detailed data on a reward plan, or e[x]it this menu'
@@ -288,10 +288,22 @@ def view_restaurant_reward_data(restaurant)
   puts "\n"
   puts "Reward data for the #{active_reward.label} reward: "
   puts "label: #{active_reward.label}, type: #{active_reward.reward_type}, requirement: #{active_reward.requirement}, desc: #{active_reward.reward_description}."
-  puts "Customers who qualify for this reward: "
+  qualified_customers = restaurant.find_qualified_customers_by_reward(active_reward)
+  if qualified_customers.size > 10
+    puts "#{qualified_customers.size} people have qualified for this reward. [v]iew or [s]kip?"
+    input = get_valid_input(%w[v view s skip])
+    if input == 'v' || input == 'view'
+      puts "Customers who qualify for this reward: "
+      restaurant.find_qualified_customers_by_reward(active_reward).each{|i| puts i.username}
+    end
+  else
+    puts "Customers who qualify for this reward: "
+    restaurant.find_qualified_customers_by_reward(active_reward).each{|i| puts i.username}
+  end
 
+  print "\nPress enter to continue: "
   gets.chomp
-  puts "---------------------"
+  puts "---------------------\n"
   view_restaurant_reward_data(restaurant)
 
 end
