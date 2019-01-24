@@ -5,14 +5,38 @@ Restaurant.destroy_all
 Review.destroy_all
 Reward.destroy_all
 #
-# #
-# #
-customers = CSV.parse("customers.csv", headers: true)
+#
+#
+# customers = CSV.parse("customers.csv", headers: true)
 
+def csv_to_array(file_location)
+    csv = CSV::parse(File.open(file_location, 'r') {|f| f.read })
+    fields = csv.shift
+    fields = fields.map {|f| f.downcase.gsub(" ", "_")}
+    csv.collect { |record| Hash[*fields.zip(record).flatten ] }
+end
+
+c = csv_to_array('./testing.csv')
+
+c.each do |customer|
+#   customer.each do |k, v|
+#     k = k.to_sym
+#   end
+  # a = customer["username"].to_sym
+  # b = customer["password"].to_sym
+  x = Customer.create(username: customer["username"], password: customer["password"])
+  # binding.pry
+  x.save
+end
+
+binding.pry
 
 # CSV.foreach("path/to/file.csv") do |row|
 #   # use row here...
 # end
+# phil = c[0]
+# heloise = c[1]
+# paul = c[2]
 
 # phil = Customer.create(username: 'Phil', password: '1')
 # heloise = Customer.create(username: 'Heloise', password: 'pass')
