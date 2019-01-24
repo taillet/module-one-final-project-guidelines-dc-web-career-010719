@@ -22,9 +22,12 @@ end
 # run methods
 
 def greeting
-  puts 'Welcome to --- app'
-  puts 'Customers can check their ratings and earned rewards,'
-  puts 'Restaurants can rate customers.'
+  puts 'Welcome to Reward Bot!'
+  puts "\n"
+  puts "With Reward Bot:"
+  puts 'Customers can check their ratings and earned rewards.'
+  puts 'Restaurants can create rewards programs and rate customers.'
+  puts "\n"
 end
 
 def customer_or_restaurant
@@ -358,7 +361,7 @@ def run
     restaurant_processing
   end
 
-  puts 'Thank you for using the --- app!'
+  puts 'Thank you for using Reward Bot!'
 end
 
 run

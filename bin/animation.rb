@@ -1,6 +1,4 @@
 
-require_relative 'animation.rb'
-
 def animation
   system("clear")
   a = <<-"EOF"

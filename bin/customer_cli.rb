@@ -30,24 +30,31 @@ end
 
 # ---------------------
 
+def check_customer(name)
+  puts "#{name} doesn't exist in our database."
+  puts 'Would you like to [c]reate a new customer account, [t]ry again, or e[x]it?'
+  input = get_valid_input(['c', 'create', 't', 'try again', 'x', 'exit'])
+  if input == 'c' || input == 'create'
+    print 'Enter a password: ' # try to hide password
+    pass = gets.chomp
+    puts "Creating a new customer, #{name}..."
+    customer = Customer.create(username: name, password: pass)
+    return 'new'
+  elsif input == 't' || input == 'try again'
+    "#{name} doesn't exist in our database. Please enter a correct username."
+    get_customer
+  elsif input == 'x' || input == 'exit'
+    return 'exit'
+  end
+end
+
 def get_customer
   print 'Please enter your username: '
   name = gets.chomp
   customer = Customer.all.find_by(username: name)
 
   if customer.nil?
-    puts "#{name} doesn't exist in our database."
-    puts 'Would you like to [c]reate a new customer account, [t]ry again, or e[x]it?'
-    input = get_valid_input(['c', 'create', 't', 'try again', 'x', 'exit'])
-    if input == 'c' || input == 'create'
-      print 'Enter a password: ' # try to hide password
-      pass = gets.chomp
-      puts "Creating a new customer, #{name}..."
-      customer = Customer.create(username: name, password: pass)
-      return 'new'
-    elsif input == 'x' || input == 'exit'
-      return 'exit'
-    end
+    check_customer(name)
   else
     print 'please enter your password: '
     pass = gets.chomp
