@@ -367,6 +367,7 @@ def run
     restaurant_processing
   end
 
+  puts "\n"
   puts 'Thank you for using Reward Bot!'
 end
 

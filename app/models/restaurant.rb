@@ -72,6 +72,26 @@ class Restaurant < ActiveRecord::Base
     Review.all.select{ |i| i.restaurant == self}
   end
 
+# hi phil, this gets all the customers for a given restaurant (array of unique usernames)
+  def get_all_customer_usernames
+    self.reviews.map(&:customer_id).uniq.map{|id| Customer.find_by(id: id).username}
+  end
+
+#I was thinking of iterating through the usernames
+#and using Customer.find_by(username: username)
+#and then applying Customer methods like .rewards or something else
+  def find_qualified_customers_by_reward
+  end
+  # this gets average overall rating if u want to compare directly
+  #to restaurant rewards without going through Customer methods
+
+  # def get_all_average_overall_ratings
+  #   get_all_customer_usernames.map do |username|
+  #     {username: username,
+  #    overall: Customer.find_by(username: username).get_average_overall_rating}
+  #   end
+  # end
+
   def best_customer
     self.get_all_restaurant_reviews.max_by {|i| i.customer.get_average_overall_rating}.customer.username
   end

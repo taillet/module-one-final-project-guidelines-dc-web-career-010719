@@ -11,7 +11,11 @@ def restaurant_processing
 
   actions = ['[r]eview a customer', '[e]dit/change your rewards program', '[v]iew information', 'e[x]it the app']
   while true
-    puts "Choose an action"
+    puts "\n"
+    puts "o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o "
+    puts "\n"
+    puts "Choose an action:"
+    puts "\n"
     for i in (1..4)
       puts "#{i}: #{actions[i - 1]}"
     end
@@ -56,9 +60,13 @@ end
 
 def check_restaurant(name)
   puts "#{name} doesn't exist in our database."
+  puts "\n"
   puts 'Would you like to [c]reate a new restaurant account, [t]ry again, or e[x]it?'
   input = get_valid_input(['c', 'create', 't', 'try again', 'x', 'exit'])
   if input == 'c' || input == 'create'
+    puts "\n"
+    puts "o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o "
+    puts "\n"
     print 'Create a restaurant name:'
     rest = gets.chomp
     create_restaurant(rest)
@@ -70,9 +78,11 @@ def check_restaurant(name)
 end
 
 def get_restaurant
+  puts "\n"
   print 'Please enter your restaurant name: '
   name = gets.chomp
   restaurant = Restaurant.all.find_by(name: name)
+
 
   #try again option is bugged, need to fix
   if restaurant.nil?
@@ -90,12 +100,14 @@ elsif count > 0
   puts 'Incorrect password, Try again. '
 end
 pass = STDIN.noecho(&:gets).chomp
+puts "\n"
 count += 1
   if pass == restaurant.password
     return restaurant
   elsif count <= 3
     get_password(count, restaurant)
   elsif count > 3
+    puts "\n"
     puts 'Incorrect password, logging off...' # instead of logging off, allow for try again in case typo
     return exit
   end
@@ -128,6 +140,8 @@ def get_reviewee
 
   if customer.nil?
     puts "Sorry, #{name} doesn't exist in our database."
+    puts "Customers must create an account on Reward Bot in order to participate in your rewards program."
+    puts "\n"
     return 'exit'
   else
     return customer
@@ -184,6 +198,7 @@ def choose_reward_to_edit(restaurant)
 end
 
 def edit_reward(active_reward, restaurant)
+  puts "\n"
   puts "Current reward data for the #{active_reward.label} reward: "
   puts "label: #{active_reward.label}, type: #{active_reward.reward_type}, requirement: #{active_reward.requirement}, desc: #{active_reward.reward_description}."
   puts 'Enter the new values for this reward: '
@@ -227,15 +242,23 @@ end
   #view info methods
 
 def view_information(restaurant)
-
+  puts "\n"
+  puts "o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o "
+  puts "\n"
   puts "View information for #{restaurant.name}: "
   while true
-    puts "Would you like to view your [r]eward program, view [c]ustomer data, or e[x]it? "
+    puts "Would you like to view your [r]eward programs, view [c]ustomer data, or e[x]it this menu? "
     input = get_valid_input(["r", "reward", "c", "customer", "x", "exit"])
 
     if input == 'r' || input == 'reward'
+      puts "\n"
+      puts "o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o "
+      puts "\n"
       view_restaurant_reward_data(restaurant)
     elsif input == 'c' || input == 'customer'
+      puts "\n"
+      puts "o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o "
+      puts "\n"
       view_restaurant_customer_data(restaurant)
     else
       return
@@ -249,9 +272,10 @@ def view_restaurant_reward_data(restaurant)
   all_rewards = restaurant.get_potential_rewards
   (1..all_rewards.size).each do |i|
     reward = all_rewards[i - 1]
-    puts "#{i}: #{reward.label} - Desc: #{reward.reward_description} for customers with a #{reward.requirement} #{reward.reward_type} rating."
+    puts "#{i}: #{reward.label} - Desc: #{reward.reward_description} for customers with a #{reward.requirement} #{reward.reward_type}.downcase rating."
   end
-  puts 'Choose a number to view detailed data on a reward plan, or e[x]it'
+  puts "\n"
+  puts 'Choose a number to view detailed data on a reward plan, or e[x]it this menu'
   input = get_valid_input([(1..all_rewards.size).map(&:to_s), 'x', 'exit'].flatten)
 
   if input == 'x' || input == 'exit'
@@ -259,7 +283,9 @@ def view_restaurant_reward_data(restaurant)
   else
     active_reward = all_rewards[input.to_i - 1]
   end
-
+  puts "\n"
+  puts "o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o "
+  puts "\n"
   puts "Reward data for the #{active_reward.label} reward: "
   puts "label: #{active_reward.label}, type: #{active_reward.reward_type}, requirement: #{active_reward.requirement}, desc: #{active_reward.reward_description}."
   puts "Customers who qualify for this reward: "
