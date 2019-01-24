@@ -11,9 +11,9 @@ def customer_processing
     puts 'New account created. Go eat at participating restaurants to start earning rewards!'
     return
   end
-
-  puts "Welcome #{customer.username}."
-
+  puts "\n"
+  puts "Welcome, #{customer.username}!"
+  puts "\n"
   loop do
     puts 'Would you like to check your [s]cores, view your [r]ewards, or e[x]it?'
     input = get_valid_input(%w[s score scores r reward rewards x exit])
@@ -49,6 +49,7 @@ def check_customer(name)
 end
 
 def get_customer
+  puts "\n"
   print 'Please enter your username: '
   name = gets.chomp
   customer = Customer.all.find_by(username: name)
@@ -56,8 +57,8 @@ def get_customer
   if customer.nil?
     check_customer(name)
   else
-    print 'please enter your password: '
-    pass = gets.chomp
+    puts 'Please enter your password: '
+    pass = STDIN.noecho(&:gets).chomp
     if pass == customer.password
       return customer
     else

@@ -1,5 +1,6 @@
 require 'bundler'
 Bundler.require
+require 'io/console'
 
 require 'require_all'
 require 'colorize'
