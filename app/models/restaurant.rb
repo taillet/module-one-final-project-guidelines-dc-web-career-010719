@@ -15,8 +15,8 @@ class Restaurant < ActiveRecord::Base
   # end
 
   def write_review(customer, es, t, bill, paid)
-    ts = tip_score(bill, paid)
-    ps = punc_score(t)
+    ps = punc_score(t.to_f)
+    ts = tip_score(bill.to_f, paid.to_f)
     overall = ((es.to_f + ps.to_f + ts.to_f) / 3).round(1)
     r = Review.create(customer: customer, restaurant: self, etiquette: es, punctuality: ps, tipping: ts, overall: overall)
     r.save
@@ -24,7 +24,6 @@ class Restaurant < ActiveRecord::Base
   end
 
   def punc_score(time)
-    time = time.to_f
     score = if time >= 20
               1
             elsif (15..20).cover?(time)
@@ -40,7 +39,7 @@ class Restaurant < ActiveRecord::Base
   end
 
   def tip_score(bill, paid)
-    percent = ((paid.to_f - bill.to_f) / bill.to_f) * 100
+    percent = ((paid - bill) / bill) * 100
     if percent >= 20
       score = 5
     elsif (15..20).cover?(percent)

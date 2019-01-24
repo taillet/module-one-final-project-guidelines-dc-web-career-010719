@@ -21,8 +21,8 @@ require_relative 'spec_helper'
     it 'shows average overall rating for a given customer' do
       phil = Customer.find_by(username: "Phil")
       heloise = Customer.find_by(username: "Heloise")
-      expect(phil.get_average_overall_rating).to eq(3.8)
-      expect(heloise.get_average_overall_rating).to eq(3.2)
+      expect(phil.get_average_overall_rating).to eq(4.4)
+      expect(heloise.get_average_overall_rating).to eq(3.9)
     end
 
     it 'shows number of visits customer has made to a given restaurant ' do
@@ -37,8 +37,8 @@ require_relative 'spec_helper'
       phil = Customer.find_by(username: "Phil")
       heloise = Customer.find_by(username: "Heloise")
       mcd = Restaurant.find_by(name: "McDonalds")
-      expect(phil.get_average_rating_by_restaurant(mcd)).to eq(3.7)
-      expect(heloise.get_average_rating_by_restaurant(mcd)).to eq(2.7)
+      expect(phil.get_average_rating_by_restaurant(mcd)).to eq(4.2)
+      expect(heloise.get_average_rating_by_restaurant(mcd)).to eq(3.0)
     end
 
     it "shows a customer's average etiquette score" do
@@ -53,30 +53,30 @@ require_relative 'spec_helper'
       phil = Customer.find_by(username: "Phil")
       heloise = Customer.find_by(username: "Heloise")
       mcd = Restaurant.find_by(name: "McDonalds")
-      expect(phil.get_average_punctuality_score).to eq(4.0)
-      expect(heloise.get_average_punctuality_score).to eq(4.5)
+      expect(phil.get_average_punctuality_score).to eq(5.0)
+      expect(heloise.get_average_punctuality_score).to eq(3.5)
     end
 
     it "shows a customer's average tipping score" do
       phil = Customer.find_by(username: "Phil")
       heloise = Customer.find_by(username: "Heloise")
       mcd = Restaurant.find_by(name: "McDonalds")
-      expect(phil.get_average_tipping_score).to eq(3.7)
-      expect(heloise.get_average_tipping_score).to eq(2.0)
+      expect(phil.get_average_tipping_score).to eq(4.3)
+      expect(heloise.get_average_tipping_score).to eq(5.0)
     end
 
     it "shows all rewards that a customer qualifies for based on their scores" do
       phil = Customer.find_by(username: "Phil")
       heloise = Customer.find_by(username: "Heloise")
       mcd = Restaurant.find_by(name: "McDonalds")
-      expect(phil.find_reward_qualifications(restaurant = mcd, type = "Overall")).to eq([Reward.find_by(requirement: 3.5)])
+      expect(heloise.find_reward_qualifications(restaurant = mcd, type = "Overall")).to eq([Reward.find_by(requirement: 3.5)])
     end
 
     it "returns empty array if the customer doesn't qualify for any rewards" do
       phil = Customer.find_by(username: "Phil")
       heloise = Customer.find_by(username: "Heloise")
-      mcd = Restaurant.find_by(name: "McDonalds")
-      expect(heloise.find_reward_qualifications(restaurant = mcd, type = "Overall")).to eq([])
+      five = Restaurant.find_by(name: "Five Guys")
+      expect(heloise.find_reward_qualifications(restaurant = five, type = "punctuality")).to eq([])
     end
 
 end
