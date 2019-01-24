@@ -2,6 +2,7 @@
 require_relative '../config/environment'
 require_relative './customer_cli.rb'
 require_relative './restaurant_cli.rb'
+require_relative './animation.rb'
 
 # add more opportunities to exit program
 
@@ -346,6 +347,7 @@ end
 # run function
 
 def run
+  animation
   greeting
 
   user_type = customer_or_restaurant

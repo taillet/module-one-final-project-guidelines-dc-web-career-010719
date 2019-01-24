@@ -15,12 +15,12 @@ def restaurant_processing
     for i in (1..4)
       puts "#{i}: #{actions[i - 1]}"
     end
-    input = get_valid_input(%w[1 2 3 4 r review e edit v view x exit])
-    if %w[1 r review].include?(input)
+    input = get_valid_input(["1", "2", "3", "4", "r", "review", "e", "edit", "v", "view", "x", "exit"])
+    if ["1", "r", "review"].include?(input)
       review_customer(restaurant)
-    elsif %w[2 e edit].include?(input)
+    elsif ["2", "e", "edit"].include?(input)
       modify_reward_program(restaurant)
-    elsif %w[3 v view].include?(input)
+    elsif ["3", "v", "view"].include?(input)
       view_information(restaurant) #not created yet
     else
       return
@@ -193,7 +193,7 @@ def view_information(restaurant)
   puts "View information for #{restaurant.name}: "
   while true
     puts "Would you like to view your [r]eward program, view [c]ustomer data, or e[x]it? "
-    input = get_valid_input(w%[r reward c customer x exit])
+    input = get_valid_input(["r", "reward", "c", "customer", "x", "exit"])
 
     if input == 'r' || input == 'reward'
       view_restaurant_reward_data(restaurant)
@@ -206,7 +206,8 @@ def view_information(restaurant)
 end
 
 def view_restaurant_reward_data(restaurant)
-  
+
+end
 end
 
 #customer data
