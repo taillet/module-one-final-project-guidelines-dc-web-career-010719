@@ -31,37 +31,53 @@ end
 # --------------------
   #log on/get user function
 
+def check_restaurant(name)
+  puts "#{name} doesn't exist in our database."
+  puts 'Would you like to [c]reate a new restaurant account, [t]ry again, or e[x]it?'
+  input = get_valid_input(['c', 'create', 't', 'try again', 'x', 'exit'])
+  if input == 'c' || input == 'create'
+    print 'Enter a password for your restaurant: ' # try to hide password
+    pass = STDIN.noecho(&:gets).chomp
+    puts "Creating a new restaurant, #{name}..."
+    restaurant = Restaurant.create(name: name, password: pass)
+  elsif input == 't' || input == 'try again'
+    get_restaurant
+  elsif input == 'x' || input == 'exit'
+    return 'exit'
+  end
+end
+
 def get_restaurant
   print 'Please enter your restaurant name: '
   name = gets.chomp
   restaurant = Restaurant.all.find_by(name: name)
 
   #try again option is bugged, need to fix
-
   if restaurant.nil?
-    puts "#{name} doesn't exist in our database."
-    puts 'Would you like to [c]reate a new restaurant account, [t]ry again, or e[x]it?'
-    input = get_valid_input(['c', 'create', 't', 'try again', 'x', 'exit'])
-    if input == 'c' || input == 'create'
-      print 'Enter a password for your restaurant: ' # try to hide password
-      pass = STDIN.noecho(&:gets).chomp
-      puts "Creating a new restaurant, #{name}..."
-      restaurant = Restaurant.create(name: name, password: pass)
-    elsif input == 'x' || input == 'exit'
-      return 'exit'
-    end
+    check_restaurant(name)
   else
-    print 'please enter your password: '
-    pass = gets.chomp
-    if pass == restaurant.password
-      return restaurant
-    else
-      puts 'Incorrect password, logging off...' # instead of logging off, allow for try again in case typo
-      return exit
-    end
+    count = 0
+    get_password(count, restaurant)
   end
 end
 
+def get_password(count, restaurant)
+if count == 0
+  puts 'Please enter your password: '
+elsif count > 0
+  puts 'Incorrect password, Try again. '
+end
+pass = STDIN.noecho(&:gets).chomp
+count += 1
+  if pass == restaurant.password
+    return restaurant
+  elsif count <= 3
+    get_password(count, restaurant)
+  elsif count > 3
+    puts 'Incorrect password, logging off...' # instead of logging off, allow for try again in case typo
+    return exit
+  end
+end
 #-------------------
   #customer review methods
 

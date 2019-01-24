@@ -36,7 +36,7 @@ def check_customer(name)
   input = get_valid_input(['c', 'create', 't', 'try again', 'x', 'exit'])
   if input == 'c' || input == 'create'
     print 'Enter a password: ' # try to hide password
-    pass = gets.chomp
+    pass = STDIN.noecho(&:gets).chomp
     puts "Creating a new customer, #{name}..."
     customer = Customer.create(username: name, password: pass)
     return 'new'
@@ -57,14 +57,26 @@ def get_customer
   if customer.nil?
     check_customer(name)
   else
-    puts 'Please enter your password: '
-    pass = STDIN.noecho(&:gets).chomp
-    if pass == customer.password
-      return customer
-    else
-      puts 'Incorrect password, logging off...'
-      return exit
-    end
+    count = 0
+    get_password(count, customer)
+  end
+end
+
+def get_password(count, customer)
+  if count == 0
+  puts 'Please enter your password: '
+elsif count > 0
+  puts 'Incorrect password, Try again. '
+end
+  pass = STDIN.noecho(&:gets).chomp
+  count += 1
+  if pass == customer.password
+    return customer
+  elseif count <= 3
+    get_password(count, customer)
+  elsif count >3
+    puts 'Incorrect password, logging off...'
+    return exit
   end
 end
 

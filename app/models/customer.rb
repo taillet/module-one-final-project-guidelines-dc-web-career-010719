@@ -58,6 +58,7 @@ class Customer < ActiveRecord::Base
       if r.reward_type == "Overall"
         score = self.get_average_overall_rating
         qualified << r if score >= r.requirement
+        binding.pry
       elsif r.reward_type == "Etiquette"
         score = self.get_average_etiquette_score
         qualified << r if score >= r.requirement
