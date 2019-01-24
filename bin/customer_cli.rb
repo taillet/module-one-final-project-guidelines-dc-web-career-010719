@@ -43,7 +43,7 @@ end
 
 def create_user(user)
   if !user_exists?(user)
-    print 'Create a password: ' # try to hide password
+    print 'Create a password: '
     pass = STDIN.noecho(&:gets).chomp
     puts "Creating a new customer, #{user}..."
     customer = Customer.create(username: user, password: pass)
@@ -87,10 +87,10 @@ end
 
 def get_password(count, customer)
   if count == 0
-  puts 'Please enter your password: '
-elsif count > 0
-  puts 'Incorrect password, Try again. '
-end
+    print 'Please enter your password: '
+  elsif count > 0
+    print 'Incorrect password, Try again. '
+  end
   pass = STDIN.noecho(&:gets).chomp
   count += 1
   if pass == customer.password
@@ -152,6 +152,11 @@ def view_customer_scores(customer)
 end
 
 def view_customer_rewards(customer)
+  print "\n"
   puts 'You qualify for the following rewards: ' # use full method functionality with restaurant and type inputs
-  customer.find_reward_qualifications.each { |i| puts "#{i.restaurant.name}: #{i.label} - Desc: #{i.reward_description}" }
+  customer.find_reward_qualifications.each do |i|
+    puts "----"
+    puts "#{i.restaurant.name}: #{i.label} - Desc: #{i.reward_description}"
+  end
+  puts "----\n"
 end
