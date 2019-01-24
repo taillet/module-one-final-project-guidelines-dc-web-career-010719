@@ -1,9 +1,4 @@
 
-
-  -refine tip/punc scores to be calculated rather than arbitrary
-
-
-
 -csv/seed stuff
 
 -make cli interface look good
@@ -18,3 +13,21 @@ friday
 --
 -'extra'/tough function
 -video stuff/presentation
+
+
+----
+cli front end stuff:
+customer
+  -puts to print on password entry + add \n after entering
+  -divider before "Type the number of the score"
+  -maybe add images/emojis to ratings instead of just "4.0"
+  -divider/return after score is displayed, could also go above main menu for check scores/view rewards
+  -space out rewards you qualify for
+
+restaurant
+  -add \n after entering pass
+  -divider above main menu ("Choose an action")
+  -smaller divider above "What is your customer's username"
+  -\n after "Your review was submitted"
+  
+----
