@@ -1,3 +1,17 @@
+# Project Description
+
+Reward Bot is a platform that allows restaurants to create rewards programs and extend rewards to customers in good standing. Customers can also create an account on Reward Bot to check their ratings and view rewards from participating restaurants.
+
+# Installation Instructions
+
+To install Reward Bot:
+1. Fork the repository
+2. Navigate to the correct directory
+3. Make sure your terminal is set to full screen to
+fully enjoy the Reward Bot experience.
+4. Run 'ruby bin.run.rb' in your terminal.
+
+******************************************
 # Module One Final Project Guidelines
 
 Congratulations, you're at the end of module one! You've worked crazy hard to get here and have learned a ton.
