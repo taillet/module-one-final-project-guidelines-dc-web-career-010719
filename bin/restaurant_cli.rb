@@ -176,9 +176,9 @@ def time_method(customer)
       time = gets.chomp.to_i
     end
     time = -time
-  elsif time == 'o'
+  elsif t == 'o'
     time = 0
-  elsif time == 'l'
+  elsif t == 'l'
     puts "How late was #{customer.username}? (in minutes)"
     time = gets.chomp.to_i
     until time.is_a?(Integer) && time != 0
