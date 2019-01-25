@@ -10,6 +10,9 @@ def customer_processing
     puts 'Goodbye'
     return
   elsif customer == 'new' #user created a new account. program ends since no data is available
+    puts "\n"
+    puts "o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o "
+    puts "\n"
     puts 'New account created. Go eat at participating restaurants to start earning rewards!'
     return
   end

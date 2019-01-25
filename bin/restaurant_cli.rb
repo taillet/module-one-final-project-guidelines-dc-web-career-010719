@@ -146,6 +146,7 @@ def get_reviewee
   customer = Customer.all.find_by(username: name)
 
   if customer.nil?
+    puts "\n"
     puts "Sorry, #{name} doesn't exist in our database."
     puts "Customers must create an account on Reward Bot in order to participate in your rewards program."
     puts "\n"
@@ -179,7 +180,9 @@ end
 
 def modify_reward_program(restaurant)
   #main menu function for restauraunts to modify their rewards program
-  puts "Modifying the reward program for #{restaurant.name}"
+  puts "\n"
+  puts "o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o "
+  puts "\n"
   puts 'Do you want to [e]dit an existing reward or [a]dd a new one?'
   input = get_valid_input(%w[e edit a add])
 
@@ -192,9 +195,10 @@ end
 
 def choose_reward_to_edit(restaurant)
   #returns the reward for editing in later functions
-  puts "Editing rewards for #{restaurant.name}..."
-  puts 'Please be considerate of customers and change rewards infrequently.' # You can't unchange this warning
-  puts 'current rewards for this program: '
+  puts "\n"
+  puts "Warning! Editing rewards for #{restaurant.name}..."
+  puts "\n"
+  puts 'Current rewards for this program: '
   all_rewards = restaurant.get_potential_rewards
   (1..all_rewards.size).each do |i|
     reward = all_rewards[i - 1]
@@ -203,6 +207,7 @@ def choose_reward_to_edit(restaurant)
   puts 'Enter the number of the reward you would like to edit'
   input = get_valid_input((1..all_rewards.size).map(&:to_s))
   active_reward = all_rewards[input.to_i - 1]
+  puts "\n"
 
   edit_reward(active_reward, restaurant)
 end
@@ -212,20 +217,24 @@ def edit_reward(active_reward, restaurant)
   puts "\n"
   puts "Current reward data for the #{active_reward.label} reward: "
   puts "label: #{active_reward.label}, type: #{active_reward.reward_type}, requirement: #{active_reward.requirement}, desc: #{active_reward.reward_description}."
+  puts "\n"
   puts 'Enter the new values for this reward: '
   puts 'Choose the name for your new reward (example: Platinum Tier, Early Bird)'
   label = gets.chomp
-  puts 'Choose the customer score your reward should examine (one of Overall/Etiquette/Punctuality/Tipping)'
+  puts "\n"
+  puts 'Choose which customer score your reward should examine (Overall, Etiquette, Punctuality, or Tipping)'
   type = get_valid_input(%w[overall etiquette punctuality tipping]).capitalize
+  puts "\n"
   puts 'Choose the required score for earning this reward (1.0 - 5.0)'
   req = gets.chomp.to_f
   until (1.0..5.0).cover?(req)
     puts 'Not a valid input, please try again.'
     req = gets.chomp.to_f
   end
+  puts "\n"
   puts 'Enter the reward a customer will receive for meeting these requirements (example: 20% discount, Booking Priority)'
   desc = gets.chomp
-
+  puts "\n"
   Reward.all.delete(active_reward.id)
   restaurant.create_reward(label, req, desc, type)
   puts 'Reward updated!'
@@ -259,6 +268,7 @@ def view_information(restaurant)
   puts "o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o "
   puts "\n"
   puts "View information for #{restaurant.name}: "
+  puts "\n"
   while true
     puts "Would you like to view your [r]eward programs, view [c]ustomer data, or e[x]it this menu? "
     input = get_valid_input(["r", "reward", "c", "customer", "x", "exit"])
@@ -286,10 +296,10 @@ def view_restaurant_reward_data(restaurant)
   all_rewards = restaurant.get_potential_rewards
   (1..all_rewards.size).each do |i|
     reward = all_rewards[i - 1]
-    puts "#{i}: #{reward.label} - Desc: #{reward.reward_description} for customers with a #{reward.requirement} #{reward.reward_type} rating."
+    puts "#{i}: #{reward.label} - Desc: #{reward.reward_description} for customers with a #{reward.requirement} #{reward.reward_type} Rating."
   end
   puts "\n"
-  puts 'Choose a number to view detailed data on a reward plan, or e[x]it this menu'
+  puts 'Choose a number to view detailed data on a reward plan, or e[x]it this menu.'
   input = get_valid_input([(1..all_rewards.size).map(&:to_s), 'x', 'exit'].flatten)
 
   if input == 'x' || input == 'exit'
@@ -307,12 +317,18 @@ def view_restaurant_reward_data(restaurant)
     puts "#{qualified_customers.size} people have qualified for this reward. [v]iew or [s]kip?"
     input = get_valid_input(%w[v view s skip])
     if input == 'v' || input == 'view'
-      puts "Customers who qualify for this reward: "
+      puts "The following customers qualify for this reward:"
       restaurant.find_qualified_customers_by_reward(active_reward).each{|i| puts i.username}
     end
   else
+    puts "\n"
     puts "Customers who qualify for this reward: "
-    restaurant.find_qualified_customers_by_reward(active_reward).each{|i| puts i.username}
+    if restaurant.find_qualified_customers_by_reward(active_reward) == []
+      puts "No customers qualify for this reward."
+    else
+      puts "The following customers qualify for this reward:"
+      restaurant.find_qualified_customers_by_reward(active_reward).each{|i| puts i.username}
+    end
   end
 
   print "\nPress enter to continue: "
