@@ -72,4 +72,32 @@ restaurant
   -search rewards by all is broken
 
 
-  restaurant:
+----------
+PRESENTATION LAYOUT
+
+INTRO:
+
+Reward Bot is a platform that allows restaurants to create
+rewards programs and extend rewards to customers in good standing.
+Customers can also create an account on Reward Bot to check their ratings and
+view rewards from participating restaurants.
+
+# Describe something you struggled to build, and show us how you ultimately implemented it in your code.
+  • Recursion
+  • CSV file issues (from excel)
+
+# Discuss 3 things you learned in the process of working on this project.
+  • Animation ACSII
+  • CSV & rspec
+  • %w[]
+  • Beautify edits your code (be careful)
+
+# Address, if anything, what you would change or add to what you have today?
+  • Delete rewards
+  • Customer stats for restaurants
+  • Separate global vs. restaurant scores
+
+# Present any code you would like to highlight.
+  • Customer.find_reward_qualifications
+  • Beautify restaurant.rb ----> punc_score method
+  • Beatify restaurant.rb ----> cover (for ranges)
