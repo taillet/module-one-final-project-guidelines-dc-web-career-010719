@@ -73,10 +73,3 @@ restaurant
 
 
   restaurant:
-
-  add case sensitive warning to logon prompt
-  add ability to exit out of edit reward menu
-  add handling if restaurant with no rewards tries to edit
-  -writing review, add error handling  for time and bill
-  format best customer/view customer stats, fix typo "higest"
-  loop back to customer stats instead of main menu after viewing a stat

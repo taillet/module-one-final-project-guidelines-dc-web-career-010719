@@ -1,4 +1,4 @@
-
+require 'pry'
 # ----------------------------------------------------
 
 def restaurant_processing
@@ -40,7 +40,7 @@ end
 def get_restaurant
   #log on function for restaurant user
 
-  puts "\n"
+  puts "\nWarning! Usernames are case-sensitive. Username must be an exact match."
   print 'Please enter your restaurant name: '
   name = gets.chomp
   restaurant = Restaurant.all.find_by(name: name)
@@ -132,9 +132,17 @@ def review_customer(restaurant)
   e = get_valid_input(range)
   t = time_method(customer)
   puts "How much was #{customer.username}’s bill?"
-  bill = gets.chomp
+  bill = gets.chomp.to_i
+  until bill.is_a?(Integer) && bill != 0
+    puts "Not a valid input, please enter a number:"
+    bill = gets.chomp.to_i
+  end
   puts "How much did #{customer.username} pay?"
-  paid = gets.chomp
+  paid = gets.chomp.to_i
+  until paid.is_a?(Integer) && paid != 0
+    puts "Not a valid input, please enter a number:"
+    paid = gets.chomp.to_i
+  end
   restaurant.write_review(customer, e, t, bill, paid)
   puts "Your review for #{customer.username} was submitted."
 
@@ -159,19 +167,25 @@ end
 def time_method(customer)
   #helper function that gets the specific inputs needed for reviewing time score
   puts "Was #{customer.username} [e]arly, [l]ate, or [o]n time?"
-  time = get_valid_input(%w[e l o]) #need error handling
-  if time == 'e'
+  t = get_valid_input(%w[e l o])
+  if t == 'e'
     puts "How early was #{customer.username}? (in minutes)"
-    time = -gets.chomp
+    time = gets.chomp.to_i
+    until time.is_a?(Integer) && time != 0
+      puts "Not a valid input, please enter a number:"
+      time = gets.chomp.to_i
+    end
+    time = -time
   elsif time == 'o'
     time = 0
   elsif time == 'l'
     puts "How late was #{customer.username}? (in minutes)"
-    time = gets.chomp
-  else
-    puts 'Incorrect input. Try again or e[x]it.'
-    time_method
-end
+    time = gets.chomp.to_i
+    until time.is_a?(Integer) && time != 0
+      puts "Not a valid input, enter a number:"
+      time = gets.chomp.to_i
+    end
+  end
   time
 end
 
@@ -183,23 +197,30 @@ def modify_reward_program(restaurant)
   puts "\n"
   puts "o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o "
   puts "\n"
-  puts 'Do you want to [e]dit an existing reward or [a]dd a new one?'
-  input = get_valid_input(%w[e edit a add])
+  puts 'Do you want to [e]dit an existing reward, [a]dd a new one, or e[x]it?'
+  input = get_valid_input(%w[e edit a add x exit])
 
   if input == 'e' || input == 'edit'
     choose_reward_to_edit(restaurant)
-  else
+  elsif input == 'a' || input == 'add'
     add_reward(restaurant)
+  else
+    return
   end
 end
 
 def choose_reward_to_edit(restaurant)
   #returns the reward for editing in later functions
+  all_rewards = restaurant.get_potential_rewards
+  if all_rewards.size == 0
+    puts "Your restaurant has no rewards in its program. Add some in the 'Add Reward' menu first!"
+    return
+  end
+
   puts "\n"
   puts "Warning! Editing rewards for #{restaurant.name}..."
   puts "\n"
   puts 'Current rewards for this program: '
-  all_rewards = restaurant.get_potential_rewards
   (1..all_rewards.size).each do |i|
     reward = all_rewards[i - 1]
     puts "#{i}: #{reward.label} - Desc: #{reward.reward_description} for customers with a #{reward.requirement} #{reward.reward_type} rating."
@@ -341,17 +362,26 @@ end
 def view_restaurant_customer_data(restaurant)
   #view customer based stats for the active restaurant user
 
-  puts "Viewing customer data: "
-  options = ['1: Best customer', '2: Worst customer', '3: Most visits']
-  options.each{|i| puts i}
-  input = get_valid_input([(1..options.size).map(&:to_s), 'x', 'exit'].flatten)
+  input = nil
+  until input == 'x' || input == 'e' || input == 'exit' || input == '4'
+    puts "\nViewing customer data: "
+    options = ['1: Best customer', '2: Worst customer', '3: Most visits', '4: Exit']
+    options.each{|i| puts i}
+    input = get_valid_input([(1..options.size).map(&:to_s), 'x', 'e', 'exit'].flatten)
 
-  if input == '1'
-    puts "The higest rated customer at your restaurant is: #{restaurant.best_customer}"
-  elsif input == '2'
-    puts "The lowest rated customer at your restaurant is : #{restaurant.worst_customer}"
-  elsif input == '3'
-    puts "The customer who has visted your restaurant the most is #{restaurant.most_visited}"
+    if input == '1'
+      puts "\n------"
+      puts "The highest rated customer at your restaurant is: #{restaurant.best_customer}"
+      puts "--------\n"
+    elsif input == '2'
+      puts "\n------"
+      puts "The lowest rated customer at your restaurant is : #{restaurant.worst_customer}"
+      puts "--------\n"
+    elsif input == '3'
+      puts "\n------"
+      puts "The customer who has visted your restaurant the most is #{restaurant.most_visited}"
+      puts "--------\n"
+    end
   end
 
 
