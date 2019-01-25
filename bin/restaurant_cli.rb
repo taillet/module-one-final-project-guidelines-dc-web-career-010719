@@ -26,7 +26,7 @@ def restaurant_processing
     elsif ["2", "e", "edit"].include?(input)
       modify_reward_program(restaurant)
     elsif ["3", "v", "view"].include?(input)
-      view_information(restaurant) #not created yet
+      view_information(restaurant)
     else
       return
     end
@@ -75,7 +75,7 @@ end
 def create_restaurant(name)
   #function to create a new restaurant user
   if !restaurant_exists?(name)
-    print 'Create a password: ' # try to hide password
+    print 'Create a password: '
     pass = STDIN.noecho(&:gets).chomp
     puts "Creating a new restaurant, #{name}..."
     restaurant = Restaurant.create(name: name, password: pass)
@@ -112,7 +112,7 @@ def get_password(count, restaurant)
     get_password(count, restaurant)
   elsif count > 3
     puts "\n"
-    puts 'Incorrect password, logging off...' # instead of logging off, allow for try again in case typo
+    puts 'Incorrect password, logging off...'
     return exit
   end
 end
