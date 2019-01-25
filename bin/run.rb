@@ -4,8 +4,6 @@ require_relative './customer_cli.rb'
 require_relative './restaurant_cli.rb'
 require_relative './animation.rb'
 
-# add more opportunities to exit program
-
 # --------------------------
 # helper methods
 

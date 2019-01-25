@@ -103,3 +103,9 @@ GO THROUGH PROGRAM:
   • Customer.find_reward_qualifications
   • Beautify restaurant.rb ----> punc_score method
   • Beatify restaurant.rb ----> cover (for ranges)
+
+
+
+
+
+#
