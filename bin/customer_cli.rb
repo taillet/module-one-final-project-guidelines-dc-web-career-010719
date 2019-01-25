@@ -176,17 +176,17 @@ def view_customer_rewards(customer)
     r_input = gets.chomp
     if Restaurant.all.find_by(name: r_input).nil?
       puts "Did not find restaurant, searching with no filter..."
-      rewards = customer.find_reward_qualifications
+      c_rewards = customer.find_reward_qualifications
     else
-      rewards = customer.find_reward_qualifications(restaurant = Restaurant.all.find_by(name: r_input))
+      c_rewards = customer.find_reward_qualifications(restaurant = Restaurant.all.find_by(name: r_input))
     end
   else
-    rewards = customer.find_reward_qualifications
+    c_rewards = customer.find_reward_qualifications
   end
 
   print "\n"
   puts 'You qualify for the following rewards: '
-  rewards.each do |i|
+  c_rewards.each do |i|
     puts "----"
     puts "#{i.restaurant.name}: #{i.label} - Desc: #{i.reward_description}"
   end

@@ -104,7 +104,7 @@ class Restaurant < ActiveRecord::Base
     if all_reviews.size == 0
       "None"
     else
-      all_reviews.max_by {|i| i.customer.customer.username}.customer.username
+      all_reviews.max_by {|i| i.customer.username}.customer.username
     end
   end
 
