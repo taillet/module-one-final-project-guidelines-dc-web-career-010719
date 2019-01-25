@@ -289,9 +289,8 @@ def view_information(restaurant)
   puts "o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o "
   puts "\n"
   puts "View information for #{restaurant.name}: "
-  puts "\n"
   while true
-    puts "Would you like to view your [r]eward programs, view [c]ustomer data, or e[x]it this menu? "
+    puts "\nWould you like to view your [r]eward programs, view [c]ustomer data, or e[x]it this menu? "
     input = get_valid_input(["r", "reward", "c", "customer", "x", "exit"])
 
     if input == 'r' || input == 'reward'
@@ -370,15 +369,15 @@ def view_restaurant_customer_data(restaurant)
     input = get_valid_input([(1..options.size).map(&:to_s), 'x', 'e', 'exit'].flatten)
 
     if input == '1'
-      puts "\n------"
+      puts "\n--------"
       puts "The highest rated customer at your restaurant is: #{restaurant.best_customer}"
       puts "--------\n"
     elsif input == '2'
-      puts "\n------"
+      puts "\n--------"
       puts "The lowest rated customer at your restaurant is : #{restaurant.worst_customer}"
       puts "--------\n"
     elsif input == '3'
-      puts "\n------"
+      puts "\n--------"
       puts "The customer who has visted your restaurant the most is #{restaurant.most_visited}"
       puts "--------\n"
     end
