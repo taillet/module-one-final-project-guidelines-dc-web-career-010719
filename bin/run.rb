@@ -68,6 +68,8 @@ def run
 
   puts "\n"
   puts 'Thank you for using Reward Bot!'
+  puts "\n"
+
   #bye
 end
 
