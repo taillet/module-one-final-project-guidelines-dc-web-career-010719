@@ -17,11 +17,12 @@ def customer_processing
     return
   end
   puts "\n"
-  puts "o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o "
-  puts "\n"
-  puts "Welcome, #{customer.username}!"
+  puts "                     Welcome, #{customer.username}!"
   puts "\n"
   loop do
+    puts "\n"
+    puts "o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o "
+    puts "\n"
     puts 'Would you like to check your [s]cores, view your [r]ewards, or e[x]it?'
     input = get_valid_input(%w[s score scores r reward rewards x exit])
 
@@ -40,6 +41,7 @@ end
 def get_customer
   #main function to get customer instance, either selecting an existing object or creating a new one
   puts "\n"
+  puts "Warning! Usernames are case-sensitive. Username must be an exact match."
   print 'Please enter your username: '
   name = gets.chomp
   customer = Customer.all.find_by(username: name)
@@ -58,6 +60,7 @@ def check_customer(name)
   puts 'Would you like to [c]reate a new customer account, [t]ry again, or e[x]it?'
   input = get_valid_input(['c', 'create', 't', 'try again', 'x', 'exit'])
   if input == 'c' || input == 'create'
+    puts "Warning! Usernames are case-sensitive."
     print 'Create a username:'
     user = gets.chomp
     create_user(user)
@@ -117,21 +120,26 @@ def view_customer_scores(customer)
   #main menu for viewing various customer scores
   list_scores
   input = get_valid_input(%w[i info 1 2 3 4])
-
+  puts "\n"
   if input == 'i' || input == 'info'
     about_scores
     puts 'Choose a number 1-4.'
-    input = get_valid_input(%w[1 2 3 4])
+    input = get_valid_input(%w[1 2 3 4 l list x exit])
+    puts "\n"
   end
-
   get_score(customer, input)
+end
+
+def ex(it)
+  while it == "exit"
+    break
+  end
 end
 
 def list_scores
   #helper function that displays the options for a user to select
-  puts "Type the number of the score you'd like to see, or [i]nfo for more information on these categories."
   puts "\n"
-  puts "o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o"
+  puts "Type the number of the score you'd like to see, or [i]nfo for more information on these categories."
   puts "\n"
   puts '1. Etiquette Score'
   puts '2. Punctuality Score'
@@ -145,7 +153,8 @@ def about_scores
   puts 'Your punctuality score reflects how timely you are with your reservations.'
   puts 'Your tipping score reflects how well you tip.'
   puts 'Your overall score is an average of your etiquette, punctuality, and tipping scores.'
-  puts "Type 'list' to see your scores or 'exit' to log out."
+  puts "\n"
+  puts "Type [l]ist to see the list of scores or e[x]it to exit this menu."
 end
 
 def get_score(customer, score)
@@ -159,8 +168,13 @@ def get_score(customer, score)
       puts "Your tipping score: #{customer.get_average_tipping_score}."
     elsif score == '4'
       puts "Your overall score: #{customer.get_average_overall_rating}."
+    elsif score == "l" || score == "list"
+      view_customer_scores(customer)
+    elsif score == "x" || score == "exit"
+      ex("exit")
     end
   else
+    puts "\n"
     puts "You don't have any scores yet. Check again after your next restaurant visit."
   end
 end
@@ -172,10 +186,12 @@ def view_customer_rewards(customer)
   input = get_valid_input(%w[r restaurant a all])
 
   if ['r', 'restaurant'].include?(input)
+    puts "\n"
     print "Enter restaurant name: "
     r_input = gets.chomp
     if Restaurant.all.find_by(name: r_input).nil?
-      puts "Did not find restaurant, searching with no filter..."
+      puts "Sorry, #{r_input} doesn't exist in our database."
+      view_customer_rewards(customer)
       c_rewards = customer.find_reward_qualifications
     else
       c_rewards = customer.find_reward_qualifications(restaurant = Restaurant.all.find_by(name: r_input))
@@ -184,11 +200,15 @@ def view_customer_rewards(customer)
     c_rewards = customer.find_reward_qualifications
   end
 
-  print "\n"
-  puts 'You qualify for the following rewards: '
-  c_rewards.each do |i|
-    puts "----"
-    puts "#{i.restaurant.name}: #{i.label} - Desc: #{i.reward_description}"
+  if c_rewards != []
+    print "\n"
+    puts 'You qualify for the following rewards: '
+    c_rewards.each do |i|
+      puts "----"
+      puts "#{i.restaurant.name}: #{i.label} - Desc: #{i.reward_description}"
+    end
+  else
+    puts "\n"
+    puts "Sorry, you don't qualify for any rewards yet."
   end
-  puts "----\n\n"
 end
