@@ -19,8 +19,8 @@ def customer_processing
   puts "\n"
   puts "                     Welcome, #{customer.username}!"
   puts "\n"
+  puts "\n"
   loop do
-    puts "\n"
     puts "o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o "
     puts "\n"
     puts 'Would you like to check your [s]cores, view your [r]ewards, or e[x]it?'
@@ -112,27 +112,25 @@ def get_password(count, customer)
     get_password(count, customer)
   elsif count >3
     puts 'Incorrect password, logging off...'
-    return exit
+    return "exit"
   end
 end
 
 def view_customer_scores(customer)
   #main menu for viewing various customer scores
-  list_scores
-  input = get_valid_input(%w[i info 1 2 3 4])
-  puts "\n"
-  if input == 'i' || input == 'info'
-    about_scores
-    puts 'Choose a number 1-4.'
-    input = get_valid_input(%w[1 2 3 4 l list x exit])
-    puts "\n"
-  end
-  get_score(customer, input)
-end
 
-def ex(it)
-  while it == "exit"
-    break
+  input = nil
+  until input == 'x' || input == 'exit' || input == '5'
+    list_scores
+    input = get_valid_input(%w[i info 1 2 3 4 5 x exit])
+    puts "\n"
+    if input == 'i' || input == 'info'
+      about_scores
+      puts 'Choose a number 1-5.'
+      input = get_valid_input(%w[1 2 3 4 5 l list x exit])
+      puts "\n"
+    end
+    get_score(customer, input)
   end
 end
 
@@ -145,6 +143,7 @@ def list_scores
   puts '2. Punctuality Score'
   puts '3. Tipping Score'
   puts '4. Overall Score'
+  puts '5. Exit this menu'
 end
 
 def about_scores
@@ -159,24 +158,34 @@ end
 
 def get_score(customer, score)
   #prompts a user for an input, and returns their overall score for the option they select
+
   if !customer.get_average_overall_rating.nan?
     if score == '1'
+      puts "--------"
       puts "Your etiquette score: #{customer.get_average_etiquette_score}."
+      puts "--------"
     elsif score == '2'
+      puts "--------"
       puts "Your punctuality score: #{customer.get_average_punctuality_score}."
+      puts "--------"
     elsif score == '3'
+      puts "--------"
       puts "Your tipping score: #{customer.get_average_tipping_score}."
+      puts "--------"
     elsif score == '4'
+      puts "--------"
       puts "Your overall score: #{customer.get_average_overall_rating}."
+      puts "--------"
     elsif score == "l" || score == "list"
       view_customer_scores(customer)
-    elsif score == "x" || score == "exit"
-      ex("exit")
+    else
+      return "exit"
     end
   else
     puts "\n"
     puts "You don't have any scores yet. Check again after your next restaurant visit."
   end
+
 end
 
 def view_customer_rewards(customer)
@@ -192,12 +201,16 @@ def view_customer_rewards(customer)
     if Restaurant.all.find_by(name: r_input).nil?
       puts "Sorry, #{r_input} doesn't exist in our database."
       view_customer_rewards(customer)
-      c_rewards = customer.find_reward_qualifications
     else
       c_rewards = customer.find_reward_qualifications(restaurant = Restaurant.all.find_by(name: r_input))
     end
   else
     c_rewards = customer.find_reward_qualifications
+  end
+
+  if c_rewards == nil
+    #blocks recursion errors
+    return
   end
 
   if c_rewards.size > 0
