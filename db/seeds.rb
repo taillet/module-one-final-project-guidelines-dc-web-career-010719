@@ -31,19 +31,18 @@ restaurants.each do |restaurant|
 end
 
 rewards.each do |reward|
-  x = Reward.create(label: reward[:label], restaurant_id: reward[:resaurant_id],
+  x =   x = Reward.create(label: reward[:label], restaurant_id: Restaurant.find_by(name: reward[:restaurant_id]).id,
       requirement: reward[:requirement], reward_description: reward[:reward_description],
       reward_type: reward[:reward_type])
   x.save
 end
 
 reviews.each do |review|
-  x = Review.create(customer_id: review[:customer_id], restaurant_id: review[:restaurant_id],
+  x = Review.create(customer_id: Customer.find_by(username: review[:customer_name]).id, restaurant_id: Restaurant.find_by(name: review[:restaurant_name]).id,
       etiquette: review[:etiquette], punctuality: review[:punctuality], tipping: review[:tipping],
       overall: review[:overall])
   x.save
 end
-
 
 # phil = Customer.create(username: 'Phil', password: '1')
 # heloise = Customer.create(username: 'Heloise', password: 'pass')
