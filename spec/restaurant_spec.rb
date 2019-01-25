@@ -18,10 +18,15 @@ describe 'Restaurant' do
   end
 
   it 'allows restaurant to find best customer' do
-    expect(Restaurant.best_customer).to eq(Customer.find_by(username: 'Jack'))
+    pop = Restaurant.find_by(name: "Popeyes")
+    expect(pop.best_customer).to eq(Customer.find_by(username: 'Kyle').username)
   end
 
   it 'allows restaurant to find worst customer' do
-    expect(Restaurant.worst_customer).to eq(Customer.find_by(username: 'Paul'))
+    pop = Restaurant.find_by(name: "Popeyes")
+    expect(pop.worst_customer).to eq(Customer.find_by(username: 'Heloise').username)
   end
 end
+
+#most visited
+#find qualified customers by reward

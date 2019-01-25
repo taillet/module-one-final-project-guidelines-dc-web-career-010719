@@ -30,9 +30,9 @@ Gold Tier,Five Guys,3.5,15% discount on all meals,Overall
 Gold Tier,Chipotle,3.5,15% discount on all meals,Overall
 Gold Tier,Olive Garden,3.5,15% discount on all meals,Overall
 Gold Tier,Chuck E Cheese,3.5,15% discount on all meals,Overall
-Silver Tier,Subway,10% discount on all meals,Overall
-Silver Tier,McDonalds,10% discount on all meals,Overall
-Silver Tier,Burger King,10% discount on all meals,Overall
+Silver Tier,Subway,3,10% discount on all meals,Overall
+Silver Tier,McDonalds,3,10% discount on all meals,Overall
+Silver Tier,Burger King,3,10% discount on all meals,Overall
 Dos Toros Booking Priority,Dos Toros,4.0,You get priority seating when you reserve,Punctuality
 Pret Big Tipper Discount,Pret,4.5,You get a 15% discount on your next meal,Tipping
 Five On Time,Five Guys,4.0,Booking priority,Punctuality
