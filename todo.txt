@@ -61,4 +61,22 @@ restaurant
 
 ----
 
-testing if github works
+  customer:
+
+  add case sensitive warning to logon prompt
+  add divider above main menu
+  maybe add option to try again if search for restauraunt that doesnt exist
+  add explanation if you dont qualify for any rewards
+  could add rewards that could be reached that you dont yet qualify for
+
+  -search rewards by all is broken
+
+
+  restaurant:
+
+  add case sensitive warning to logon prompt
+  add ability to exit out of edit reward menu
+  add handling if restaurant with no rewards tries to edit
+  -writing review, add error handling  for time and bill
+  format best customer/view customer stats, fix typo "higest"
+  loop back to customer stats instead of main menu after viewing a stat
