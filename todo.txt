@@ -82,6 +82,8 @@ rewards programs and extend rewards to customers in good standing.
 Customers can also create an account on Reward Bot to check their ratings and
 view rewards from participating restaurants.
 
+GO THROUGH PROGRAM:
+
 # Describe something you struggled to build, and show us how you ultimately implemented it in your code.
   • Recursion
   • CSV file issues (from excel)

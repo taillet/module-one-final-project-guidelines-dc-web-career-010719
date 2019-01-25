@@ -1,25 +1,25 @@
-customer_name,restaurant_name,etiquette,punctuality,tipping,overall
-Phil,Dos Toros,5,5,5,5
-Heloise,Pret,4,2,1,2.3
-Paul,LPQ,3,3,3,3
-Jake,Subway,2,3,5,3.3
-James,McDonalds,5,1,3,3
-Melanie,Burger King,5,5,4,4.7
-Andrea,Dunkin Donuts,4,4,3,3.7
-Artem,Panera Bread,4,2,5,3.7
-Chris,KFC,4,2,4,3.3
-Kyle,Popeyes,5,2,4,3.7
-Anthony,Chick-fil-A,4,1,5,3.3
-Ariel,Five Guys,5,2,2,3
-Ben,Texas Roadhouse,2,4,3,3
-Chine,In-N-Out,5,2,5,4
-Hai,Hard Rock Cafe,5,3,4,4
-Ross,Olive Garden,1,2,3,2
-Ryan,Rainforest Cafe,2,2,5,3
-Serven,Boston Market,3,2,4,3
-Shannon,Chipotle,3,1,4,2.7
-Matthew,Dave and Busters,3,5,4,4
-Ben,Chuck E Cheese,5,5,5,5
-Heloise,Popeyes,5,3,3,3.7
-Kyle,Chick-fil-A,4,5,4,3
-Phil,Five Guys,3,2,1,2
+customer_name,restaurant_name,etiquette,punctuality,tipping
+Phil,Dos Toros,5,5,5
+Heloise,Pret,4,2,1
+Paul,LPQ,3,3,3
+Jake,Subway,2,3,5
+James,McDonalds,5,1,3
+Melanie,Burger King,5,5,4
+Andrea,Dunkin Donuts,4,4,3
+Artem,Panera Bread,4,2,5
+Chris,KFC,4,2,4
+Kyle,Popeyes,5,2,4
+Anthony,Chick-fil-A,4,1,5
+Ariel,Five Guys,5,2,2
+Ben,Texas Roadhouse,2,4,3
+Chine,In-N-Out,5,2,5
+Hai,Hard Rock Cafe,5,3,4
+Ross,Olive Garden,1,2,3
+Ryan,Rainforest Cafe,2,2,5
+Serven,Boston Market,3,2,4
+Shannon,Chipotle,3,1,4
+Matthew,Dave and Busters,3,5,4
+Ben,Chuck E Cheese,5,5,5
+Heloise,Popeyes,5,3,3
+Kyle,Chick-fil-A,4,5,4
+Phil,Five Guys,3,2,1
