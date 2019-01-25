@@ -47,7 +47,7 @@ class Customer < ActiveRecord::Base
               self.get_average_etiquette_score
             elsif reward.reward_type == "Punctuality"
               self.get_average_punctuality_score
-            else
+            elsif reward.reward_type == "Tipping"
               self.get_average_tipping_score
             end
     score >= reward.requirement

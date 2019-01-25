@@ -200,7 +200,7 @@ def view_customer_rewards(customer)
     c_rewards = customer.find_reward_qualifications
   end
 
-  if c_rewards != []
+  if c_rewards.size > 0
     print "\n"
     puts 'You qualify for the following rewards: '
     c_rewards.each do |i|
