@@ -1,5 +1,4 @@
 
-require 'pry'
 class Customer < ActiveRecord::Base
 
   has_many :reviews
@@ -41,6 +40,7 @@ class Customer < ActiveRecord::Base
   end
 
   def check_single_reward_status(reward)
+    #takes a reward object and returns true or false based on whether the customer meets the reward requirements
     score = if reward.reward_type == "Overall"
               self.get_average_overall_rating
             elsif reward.reward_type == "Etiquette"

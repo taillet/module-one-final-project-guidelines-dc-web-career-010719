@@ -2,6 +2,8 @@
 # ----------------------------------------------------
 
 def restaurant_processing
+  #main function for restaurant user functionality
+
   restaurant = get_restaurant
 
   if restaurant == 'exit'
@@ -35,30 +37,24 @@ end
 # --------------------
   #log on/get user function
 
-def restaurant_exists?(name)
+def get_restaurant
+  #log on function for restaurant user
+
+  puts "\n"
+  print 'Please enter your restaurant name: '
+  name = gets.chomp
   restaurant = Restaurant.all.find_by(name: name)
+
   if restaurant.nil?
-    return false
+    check_restaurant(name)
   else
-    return true
+    count = 0
+    get_password(count, restaurant)
   end
 end
-
-def create_restaurant(name)
-  if !restaurant_exists?(name)
-    print 'Create a password: ' # try to hide password
-    pass = STDIN.noecho(&:gets).chomp
-    puts "Creating a new restaurant, #{name}..."
-    restaurant = Restaurant.create(name: name, password: pass)
-  else
-    puts "This restaurant already exists. Try another restaurant name."
-    name = gets.chomp
-    create_user(name)
-  end
-end
-
 
 def check_restaurant(name)
+  #helper function that resolves the issue of trying to sign on as a restaurant that doesnt exist
   puts "#{name} doesn't exist in our database."
   puts "\n"
   puts 'Would you like to [c]reate a new restaurant account, [t]ry again, or e[x]it?'
@@ -77,31 +73,40 @@ def check_restaurant(name)
   end
 end
 
-def get_restaurant
-  puts "\n"
-  print 'Please enter your restaurant name: '
-  name = gets.chomp
-  restaurant = Restaurant.all.find_by(name: name)
-
-
-  #try again option is bugged, need to fix
-  if restaurant.nil?
-    check_restaurant(name)
+def create_restaurant(name)
+  #function to create a new restaurant user
+  if !restaurant_exists?(name)
+    print 'Create a password: ' # try to hide password
+    pass = STDIN.noecho(&:gets).chomp
+    puts "Creating a new restaurant, #{name}..."
+    restaurant = Restaurant.create(name: name, password: pass)
   else
-    count = 0
-    get_password(count, restaurant)
+    puts "This restaurant already exists. Try another restaurant name."
+    name = gets.chomp
+    create_user(name)
+  end
+end
+
+def restaurant_exists?(name)
+  #helper function that checks if a restaurant name already exists before creating it again
+  restaurant = Restaurant.all.find_by(name: name)
+  if restaurant.nil?
+    return false
+  else
+    return true
   end
 end
 
 def get_password(count, restaurant)
-if count == 0
-  puts 'Please enter your password: '
-elsif count > 0
-  puts 'Incorrect password, Try again. '
-end
-pass = STDIN.noecho(&:gets).chomp
-puts "\n"
-count += 1
+  #enter password before logging on as a restaurant
+  if count == 0
+    puts 'Please enter your password: '
+  elsif count > 0
+    puts 'Incorrect password, Try again. '
+  end
+  pass = STDIN.noecho(&:gets).chomp
+  puts "\n"
+  count += 1
   if pass == restaurant.password
     return restaurant
   elsif count <= 3
@@ -116,6 +121,7 @@ end
   #customer review methods
 
 def review_customer(restaurant)
+  #gets the values and customer for writing a review
 
   puts "What is your customer's username?"
   customer = get_reviewee
@@ -135,6 +141,7 @@ def review_customer(restaurant)
 end
 
 def get_reviewee
+  #helper function that gets the customer object to review
   name = gets.chomp
   customer = Customer.all.find_by(username: name)
 
@@ -149,6 +156,7 @@ def get_reviewee
 end
 
 def time_method(customer)
+  #helper function that gets the specific inputs needed for reviewing time score
   puts "Was #{customer.username} [e]arly, [l]ate, or [o]n time?"
   time = get_valid_input(%w[e l o]) #need error handling
   if time == 'e'
@@ -169,7 +177,8 @@ end
 # -----------------------
   #reward program methods
 
-def modify_reward_program(restaurant) # add "review rewards" method for restaurants
+def modify_reward_program(restaurant)
+  #main menu function for restauraunts to modify their rewards program
   puts "Modifying the reward program for #{restaurant.name}"
   puts 'Do you want to [e]dit an existing reward or [a]dd a new one?'
   input = get_valid_input(%w[e edit a add])
@@ -182,6 +191,7 @@ def modify_reward_program(restaurant) # add "review rewards" method for restaura
 end
 
 def choose_reward_to_edit(restaurant)
+  #returns the reward for editing in later functions
   puts "Editing rewards for #{restaurant.name}..."
   puts 'Please be considerate of customers and change rewards infrequently.' # You can't unchange this warning
   puts 'current rewards for this program: '
@@ -198,6 +208,7 @@ def choose_reward_to_edit(restaurant)
 end
 
 def edit_reward(active_reward, restaurant)
+  #takes a reward as an argument, gets new scores, deletes the old reward and adds a new one
   puts "\n"
   puts "Current reward data for the #{active_reward.label} reward: "
   puts "label: #{active_reward.label}, type: #{active_reward.reward_type}, requirement: #{active_reward.requirement}, desc: #{active_reward.reward_description}."
@@ -221,6 +232,7 @@ def edit_reward(active_reward, restaurant)
 end
 
 def add_reward(restaurant)
+  #adds a new reward to the restaurant's reward plan
   puts 'Adding new reward...'
   puts 'Choose the name for your new reward (example: Platinum Tier, Early Bird)'
   label = gets.chomp
@@ -242,6 +254,7 @@ end
   #view info methods
 
 def view_information(restaurant)
+  #main menu function for viewing information of the logged on restaurant user
   puts "\n"
   puts "o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o "
   puts "\n"
@@ -268,6 +281,7 @@ def view_information(restaurant)
 end
 
 def view_restaurant_reward_data(restaurant)
+  #views all potential rewards for the active restaurant user, with the option to examine more closely
 
   all_rewards = restaurant.get_potential_rewards
   (1..all_rewards.size).each do |i|
@@ -309,6 +323,7 @@ def view_restaurant_reward_data(restaurant)
 end
 
 def view_restaurant_customer_data(restaurant)
+  #view customer based stats for the active restaurant user
 
   puts "Viewing customer data: "
   options = ['1: Best customer', '2: Worst customer', '3: Most visits']

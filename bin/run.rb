@@ -10,6 +10,7 @@ require_relative './animation.rb'
 # helper methods
 
 def get_valid_input(v_array)
+  #helper function that takes in an array of accepted inputs. the method loops until the user inputs one of the matching values (not case sensitive)
   input = gets.chomp.downcase
   until v_array.include?(input)
     puts 'Not a valid input, please try again.'
@@ -22,6 +23,7 @@ end
 # run methods
 
 def greeting
+  #hi
 
   puts "\n"
   puts "o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o "
@@ -37,6 +39,7 @@ def greeting
 end
 
 def customer_or_restaurant
+  #app functionality is split between customers and restaurants
   puts 'Log on as a [c]ustomer or [r]estaurant: '
   input = get_valid_input(%w[c r customer restaurant])
   if input == 'c' || input == 'customer'
@@ -50,7 +53,9 @@ end
 # run function
 
 def run
-  animation
+  #main run function
+
+  animation #plays an animation
   greeting
 
   user_type = customer_or_restaurant
@@ -63,6 +68,7 @@ def run
 
   puts "\n"
   puts 'Thank you for using Reward Bot!'
+  #bye
 end
 
 run

@@ -2,12 +2,14 @@
 # ------------------------------------------
 
 def customer_processing
-  customer = get_customer
+  #main customer branch function
 
-  if customer == 'exit'
+  customer = get_customer #gets customer object the user is operating as
+
+  if customer == 'exit' #user chose 'exit' from the login menu, ends the program
     puts 'Goodbye'
     return
-  elsif customer == 'new'
+  elsif customer == 'new' #user created a new account. program ends since no data is available
     puts 'New account created. Go eat at participating restaurants to start earning rewards!'
     return
   end
@@ -32,29 +34,23 @@ end
 
 # ---------------------
 
-def user_exists?(user)
-  customer = Customer.all.find_by(username: user)
-  if customer.nil?
-    return false
-  else
-    return true
-  end
-end
+def get_customer
+  #main function to get customer instance, either selecting an existing object or creating a new one
+  puts "\n"
+  print 'Please enter your username: '
+  name = gets.chomp
+  customer = Customer.all.find_by(username: name)
 
-def create_user(user)
-  if !user_exists?(user)
-    print 'Create a password: '
-    pass = STDIN.noecho(&:gets).chomp
-    puts "Creating a new customer, #{user}..."
-    customer = Customer.create(username: user, password: pass)
+  if customer.nil?
+    check_customer(name)
   else
-    puts "This username already exists. Try another username."
-    user = gets.chomp
-    create_user(user)
+    count = 0
+    get_password(count, customer)
   end
 end
 
 def check_customer(name)
+  #branch function that handles entering the name of a user that doesnt exist
   puts "#{name} doesn't exist in our database."
   puts 'Would you like to [c]reate a new customer account, [t]ry again, or e[x]it?'
   input = get_valid_input(['c', 'create', 't', 'try again', 'x', 'exit'])
@@ -71,21 +67,32 @@ def check_customer(name)
   end
 end
 
-def get_customer
-  puts "\n"
-  print 'Please enter your username: '
-  name = gets.chomp
-  customer = Customer.all.find_by(username: name)
-
-  if customer.nil?
-    check_customer(name)
+def create_user(user)
+  #lets user create a new customer account, checking if username already exists and prompting a password
+  if !user_exists?(user)
+    print 'Create a password: '
+    pass = STDIN.noecho(&:gets).chomp
+    puts "Creating a new customer, #{user}..."
+    customer = Customer.create(username: user, password: pass)
   else
-    count = 0
-    get_password(count, customer)
+    puts "This username already exists. Try another username."
+    user = gets.chomp
+    create_user(user)
+  end
+end
+
+def user_exists?(user)
+  #helper function to check if the user is trying to create an account with a username that already exists
+  customer = Customer.all.find_by(username: user)
+  if customer.nil?
+    return false
+  else
+    return true
   end
 end
 
 def get_password(count, customer)
+  #prompts the customers password before logging on, giving three failed attempts before logging off
   if count == 0
     print 'Please enter your password: '
   elsif count > 0
@@ -103,7 +110,22 @@ def get_password(count, customer)
   end
 end
 
+def view_customer_scores(customer)
+  #main menu for viewing various customer scores
+  list_scores
+  input = get_valid_input(%w[i info 1 2 3 4])
+
+  if input == 'i' || input == 'info'
+    about_scores
+    puts 'Choose a number 1-4.'
+    input = get_valid_input(%w[1 2 3 4])
+  end
+
+  get_score(customer, input)
+end
+
 def list_scores
+  #helper function that displays the options for a user to select
   puts "Type the number of the score you'd like to see, or [i]nfo for more information on these categories."
   puts "\n"
   puts "o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o o-o"
@@ -115,6 +137,7 @@ def list_scores
 end
 
 def about_scores
+  #additional (optional) info to explain what the different scores mean
   puts 'Your etiquette score reflects your interactions with restaurant staff.'
   puts 'Your punctuality score reflects how timely you are with your reservations.'
   puts 'Your tipping score reflects how well you tip.'
@@ -123,6 +146,7 @@ def about_scores
 end
 
 def get_score(customer, score)
+  #prompts a user for an input, and returns their overall score for the option they select
   if !customer.get_average_overall_rating.nan?
     if score == '1'
       puts "Your etiquette score: #{customer.get_average_etiquette_score}."
@@ -138,20 +162,8 @@ def get_score(customer, score)
   end
 end
 
-def view_customer_scores(customer)
-  list_scores
-  input = get_valid_input(%w[i info 1 2 3 4])
-
-  if input == 'i' || input == 'info'
-    about_scores
-    puts 'Choose a number 1-4.'
-    input = get_valid_input(%w[1 2 3 4])
-  end
-
-  get_score(customer, input)
-end
-
 def view_customer_rewards(customer)
+  #main function for viewing customer rewards
 
   puts "\nView rewards by [r]estaurant, or [a]ll?"
   input = get_valid_input(%w[r restaurant a all])
