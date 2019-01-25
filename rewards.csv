@@ -1,4 +1,39 @@
 label,restaurant_id,requirement,reward_description,reward_type
-Dos Toros Booking Priority,1,4,You get priority seating when you reserve,Punctuality
-Pret Big Tipper Discount,2,4,You get a 15% discount on your next meal,Tipping
-LPQ Great Customer Discount,3,4,You get a 10% discount on your next meal,Overall
+Platinum Tier,Dos Toros,4.0,20% discount on all meals,Overall
+Platinum Tier,Pret,4.0,20% discount on all meals,Overall
+Platinum Tier,LPQ,4.0,20% discount on all meals,Overall
+Platinum Tier,Subway,4.0,20% discount on all meals,Overall
+Platinum Tier,McDonalds,4.0,20% discount on all meals,Overall
+Platinum Tier,Burger King,4.0,20% discount on all meals,Overall
+Platinum Tier,Dunkin Donuts,4.0,20% discount on all meals,Overall
+Platinum Tier,Panera Bread,4.0,20% discount on all meals,Overall
+Platinum Tier,KFC,4.0,20% discount on all meals,Overall
+Platinum Tier,Popeyes,4.0,20% discount on all meals,Overall
+Platinum Tier,Chick-fil-A,4.0,20% discount on all meals,Overall
+Platinum Tier,Five Guys,4.0,20% discount on all meals,Overall
+Platinum Tier,Texas Roadhouse,4.0,20% discount on all meals,Overall
+Platinum Tier,In-N-Out,4.0,20% discount on all meals,Overall
+Platinum Tier,Hard Rock Cafe,4.0,20% discount on all meals,Overall
+Platinum Tier,Olive Garden,4.0,20% discount on all meals,Overall
+Platinum Tier,Rainforest Cafe,4.0,20% discount on all meals,Overall
+Platinum Tier,Boston Market,4.0,20% discount on all meals,Overall
+Platinum Tier,Chipotle,4.0,20% discount on all meals,Overall
+Platinum Tier,Dave and Busters,4.0,20% discount on all meals,Overall
+Platinum Tier,Chuck E Cheese,4.0,20% discount on all meals,Overall
+Gold Tier,Subway,3.5,15% discount on all meals,Overall
+Gold Tier,KFC,3.5,15% discount on all meals,Overall
+Gold Tier,McDonalds,3.5,15% discount on all meals,Overall
+Gold Tier,Burger King,3.5,15% discount on all meals,Overall
+Gold Tier,Popeyes,3.5,15% discount on all meals,Overall
+Gold Tier,In-N-Out,3.5,15% discount on all meals,Overall
+Gold Tier,Five Guys,3.5,15% discount on all meals,Overall
+Gold Tier,Chipotle,3.5,15% discount on all meals,Overall
+Gold Tier,Olive Garden,3.5,15% discount on all meals,Overall
+Gold Tier,Chuck E Cheese,3.5,15% discount on all meals,Overall
+Silver Tier,Subway,10% discount on all meals,Overall
+Silver Tier,McDonalds,10% discount on all meals,Overall
+Silver Tier,Burger King,10% discount on all meals,Overall
+Dos Toros Booking Priority,Dos Toros,4.0,You get priority seating when you reserve,Punctuality
+Pret Big Tipper Discount,Pret,4.5,You get a 15% discount on your next meal,Tipping
+Five On Time,Five Guys,4.0,Booking priority,Punctuality
+Eat Friendly,Subway,4.0,Free cookie,Etiquette

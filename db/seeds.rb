@@ -18,7 +18,6 @@ restaurants = csv_to_array('./restaurants.csv')
 rewards = csv_to_array('./rewards.csv')
 reviews = csv_to_array('./reviews.csv')
 
-
 customers.each do |customer|
   x = Customer.create(username: customer[:username], password: customer[:password])
   x.save
@@ -31,7 +30,7 @@ restaurants.each do |restaurant|
 end
 
 rewards.each do |reward|
-  x =   x = Reward.create(label: reward[:label], restaurant_id: Restaurant.find_by(name: reward[:restaurant_id]).id,
+  x = Reward.create(label: reward[:label], restaurant_id: Restaurant.find_by(name: reward[:restaurant_id]).id,
       requirement: reward[:requirement], reward_description: reward[:reward_description],
       reward_type: reward[:reward_type])
   x.save
