@@ -66,8 +66,6 @@ require_relative 'spec_helper'
       expect(heloise.get_average_tipping_score).to eq(2.0)
     end
 
-# check single reward status
-
     it "shows all rewards that a customer qualifies for based on their scores" do
       phil = Customer.find_by(username: "Phil")
       heloise = Customer.find_by(username: "Heloise")

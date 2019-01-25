@@ -27,6 +27,3 @@ describe 'Restaurant' do
     expect(pop.worst_customer).to eq(Customer.find_by(username: 'Heloise').username)
   end
 end
-
-#most visited
-#find qualified customers by reward
